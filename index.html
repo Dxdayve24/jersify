@@ -1,393 +1,383 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JERSIFY</title>
-  <style>
-    :root { --accent: #c1121f; --dark: #0d0d0d; --green: #00e676; }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; background: linear-gradient(180deg, #c1121f 0%, #7a0b13 100%); background-attachment: fixed; color: white; padding-bottom: 80px; }
-    header { padding: 18px 16px; background: var(--dark); border-bottom: 3px solid var(--green); position: sticky; top: 0; z-index: 5; }
-    header h1 { margin: 0; letter-spacing: 5px; font-size: 26px; }
-    header small { color: #aaa; letter-spacing: 1px; }
-    main { padding: 16px; }
-    h2 { margin: 6px 0 16px; font-size: 24px; }
-    h3 { margin: 22px 0 12px; }
-    .page { display: none; }
-    .page.active { display: block; }
-    .card { background: white; color: #111; padding: 14px; border-radius: 16px; margin-bottom: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.35); }
-    .card img { width: 100%; border-radius: 12px; margin-bottom: 10px; display: block; }
-    .card b { font-size: 18px; }
-    .card p { margin: 6px 0 10px; color: #555; }
-    .price { color: var(--accent); font-weight: bold; font-size: 20px; }
-    .total { background: var(--dark); color: white; text-align: center; border: 2px solid var(--green); }
-    .total .price { color: var(--green); font-size: 32px; }
-    .badge { display: inline-block; background: var(--green); color: black; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-left: 10px; }
-    input { display: block; width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 12px; border: none; font-size: 16px; background: white; color: black; }
-    .btn, #clear { width: 100%; padding: 16px; background: var(--dark); color: white; border: 2px solid var(--green); border-radius: 12px; font-size: 17px; font-weight: bold; letter-spacing: 1px; }
-    .btn:active { background: var(--green); color: black; }
-    #clear { border-color: #ff5252; margin-top: 8px; }
-    .del { background: none; border: 1px solid #999; color: #555; padding: 6px 12px; border-radius: 8px; margin-left: 10px; }
-    .msg { text-align: center; color: #ffd6d6; padding: 20px 0; }
-    .result { text-align: center; font-weight: bold; font-size: 18px; display: none; }
-    .fair { background: var(--green); color: black; }
-    .unfair { background: #ffcdd2; color: #b71c1c; }
-    nav { position: fixed; bottom: 0; left: 0; right: 0; display: flex; background: var(--dark); border-top: 1px solid #333; }
-    nav button { flex: 1; padding: 18px 0; background: none; color: #999; border: none; font-size: 13px; border-top: 3px solid transparent; }
-    nav button.on { color: white; border-top: 3px solid var(--green); }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JERSIFY</title>
+<style>
+:root { --accent: #c1121f; --dark: #0d0d0d; --green: #00e676; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; background: linear-gradient(180deg, #c1121f 0%, #7a0b13 100%); background-attachment: fixed; color: white; padding-bottom: 80px; }
+header { padding: 18px 16px; background: var(--dark); border-bottom: 3px solid var(--green); position: sticky; top: 0; z-index: 5; }
+header h1 { margin: 0; letter-spacing: 5px; font-size: 26px; }
+header small { color: #aaa; letter-spacing: 1px; }
+main { padding: 16px; }
+h2 { margin: 6px 0 16px; font-size: 24px; }
+h3 { margin: 22px 0 12px; }
+.page { display: none; }
+.page.active { display: block; }
+.card { background: white; color: #111; padding: 14px; border-radius: 16px; margin-bottom: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.35); }
+.card img { width: 100%; border-radius: 12px; margin-bottom: 10px; display: block; }
+.card b { font-size: 18px; }
+.card p { margin: 6px 0 10px; color: #555; }
+.price { color: var(--accent); font-weight: bold; font-size: 20px; }
+.total { background: var(--dark); color: white; text-align: center; border: 2px solid var(--green); }
+.total .price { color: var(--green); font-size: 32px; }
+.badge { display: inline-block; background: var(--green); color: black; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-left: 10px; }
+input { display: block; width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 12px; border: none; font-size: 16px; background: white; color: black; }
+#authBox input { border: 1px solid #ccc; margin-top: 10px; }
+.btn, #clear { width: 100%; padding: 16px; background: var(--dark); color: white; border: 2px solid var(--green); border-radius: 12px; font-size: 17px; font-weight: bold; letter-spacing: 1px; }
+.btn:active { background: var(--green); color: black; }
+#clear { border-color: #ff5252; margin-top: 8px; }
+.del { background: none; border: 1px solid #999; color: #555; padding: 6px 12px; border-radius: 8px; margin-left: 10px; }
+.msg { text-align: center; color: #ffd6d6; padding: 20px 0; }
+.result { text-align: center; font-weight: bold; font-size: 18px; display: none; }
+.fair { background: var(--green); color: black; }
+.unfair { background: #ffcdd2; color: #b71c1c; }
+nav { position: fixed; bottom: 0; left: 0; right: 0; display: flex; background: var(--dark); border-top: 1px solid #333; }
+nav button { flex: 1; padding: 18px 0; background: none; color: #999; border: none; font-size: 13px; border-top: 3px solid transparent; }
+nav button.on { color: white; border-top: 3px solid var(--green); }
+</style>
 </head>
 <body>
-  <header>
-    <h1>JERSIFY</h1>
-    <small>The next-generation jersey marketplace</small>
-  </header>
+<header>
+<h1>JERSIFY</h1>
+<small>The next-generation jersey marketplace</small>
+</header>
 
-  <main>
-    <section id="home" class="page active">
-      <h2>Home</h2>
-      <div id="homeMsg" class="msg">Loading listings...</div>
-      <div id="feed"></div>
-    </section>
+<main>
+<section id="home" class="page active">
+<h2>Home</h2>
+<div id="homeMsg" class="msg">Loading listings...</div>
+<div id="feed"></div>
+</section>
 
-    <section id="sell" class="page">
-      <h2>Sell</h2>
-      <input id="name" placeholder="Jersey name">
-      <input id="size" placeholder="Size">
-      <input id="price" placeholder="Price" type="number">
-      <input id="photo" type="file" accept="image/*">
-      <button class="btn" id="add">LIST JERSEY</button>
-    </section>
+<section id="sell" class="page">
+<h2>Sell</h2>
+<input id="name" placeholder="Jersey name">
+<input id="size" placeholder="Size">
+<input id="price" placeholder="Price" type="number">
+<input id="photo" type="file" accept="image/*">
+<button class="btn" id="add">LIST JERSEY</button>
+</section>
 
-    <section id="swap" class="page">
-      <h2>Swap</h2>
-      <h3 style="margin-top:0">Fair trade checker</h3>
-      <input id="mine" placeholder="Value of your jersey ($)" type="number">
-      <input id="theirs" placeholder="Value of their jersey ($)" type="number">
-      <button class="btn" id="check">CHECK TRADE</button>
-      <div id="result" class="card result" style="margin-top:12px"></div>
+<section id="swap" class="page">
+<h2>Swap</h2>
+<h3 style="margin-top:0">Fair trade checker</h3>
+<input id="mine" placeholder="Value of your jersey ( )" type="number">
+<button class="btn" id="check">CHECK TRADE</button>
+<div id="result" class="card result" style="margin-top:12px"></div>
 
-      <h3>Post a swap</h3>
-      <input id="sname" placeholder="Jersey you'll trade">
-      <input id="svalue" placeholder="Its value ($)" type="number">
-      <input id="swant" placeholder="What you want in return">
-      <button class="btn" id="sadd">POST SWAP</button>
-      <div id="slist" style="margin-top:16px"></div>
-    </section>
+<h3>Post a swap</h3>
+<input id="sname" placeholder="Jersey you'll trade">
+<input id="svalue" placeholder="Its value ($`)" type="number">
+<input id="swant" placeholder="What you want in return">
+<button class="btn" id="sadd">POST SWAP</button>
+<div id="slist" style="margin-top:16px"></div>
+</section>
 
-    <section id="wardrobe" class="page">
-      <h2>Wardrobe</h2>
-      <div class="card total">Collection value<br><span class="price" id="total">$0</span></div>
-      <input id="wname" placeholder="Jersey name">
-      <input id="wvalue" placeholder="Estimated value" type="number">
-      <button class="btn" id="wadd">ADD TO WARDROBE</button>
-      <div id="wlist" style="margin-top:16px"></div>
-    </section>
+<section id="wardrobe" class="page">
+<h2>Wardrobe</h2>
+<div class="card total">Collection value<br><span class="price" id="total">`$0</span></div>
+<input id="wname" placeholder="Jersey name">
+<input id="wvalue" placeholder="Estimated value" type="number">
+<button class="btn" id="wadd">ADD TO WARDROBE</button>
+<div id="wlist" style="margin-top:16px"></div>
+</section>
 
-    <section id="profile" class="page">
-      <h2>Profile</h2>
-      <div class="card"><b>Jerseys I listed</b><br><span class="price" id="s-listed">0</span></div>
-      <div class="card"><b>Swaps I posted</b><br><span class="price" id="s-swaps">0</span></div>
-      <div class="card"><b>Wardrobe items</b><br><span class="price" id="s-ward">0</span></div>
-      <div class="card"><b>Collection value</b><br><span class="price" id="s-value">$0</span></div>
-      <button id="clear">CLEAR MY WARDROBE</button>
-    </section>
-  </main>
+<section id="profile" class="page">
+<h2>Profile</h2>
+<div class="card" id="authBox">
+<div id="loggedOut">
+<b>Log in or sign up</b>
+<input id="email" type="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Password (6+ characters)">
+<button class="btn" id="login">LOG IN</button>
+<button class="btn" id="signup" style="margin-top:8px">SIGN UP</button>
+</div>
+<div id="loggedIn" style="display:none">
+<b>Signed in as</b>
+<p id="who"></p>
+<button class="btn" id="logout">LOG OUT</button>
+</div>
+</div>
+<div class="card"><b>Jerseys I listed</b><br><span class="price" id="s-listed">0</span></div>
+<div class="card"><b>Swaps I posted</b><br><span class="price" id="s-swaps">0</span></div>
+<div class="card"><b>Wardrobe items</b><br><span class="price" id="s-ward">0</span></div>
+<div class="card"><b>Collection value</b><br><span class="price" id="s-value">$`0</span></div>
+<button id="clear">CLEAR MY WARDROBE</button>
+</section>
+</main>
 
-  <nav>
-    <button data-page="home" class="on">Home</button>
-    <button data-page="sell">Sell</button>
-    <button data-page="swap">Swap</button>
-    <button data-page="wardrobe">Wardrobe</button>
-    <button data-page="profile">Profile</button>
-  </nav>
+<nav>
+<button data-page="home" class="on">Home</button>
+<button data-page="sell">Sell</button>
+<button data-page="swap">Swap</button>
+<button data-page="wardrobe">Wardrobe</button>
+<button data-page="profile">Profile</button>
+</nav>
 
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-  <script>
-    var firebaseConfig = {
-      apiKey: "AIzaSyAj6JfHidij2AVAWckWl42dUDGVX64ukKk",
-      authDomain: "jersify-d6ab4.firebaseapp.com",
-      projectId: "jersify-d6ab4",
-      storageBucket: "jersify-d6ab4.firebasestorage.app",
-      messagingSenderId: "282065025206",
-      appId: "1:282065025206:web:3ac27e10d6e1c834f38e17"
-    };
-    firebase.initializeApp(firebaseConfig);
-    var db = firebase.firestore();
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+var firebaseConfig = {
+apiKey: "AIzaSyAj6JfHidij2AVAWckWl42dUDGVX64ukKk",
+authDomain: "jersify-d6ab4.firebaseapp.com",
+projectId: "jersify-d6ab4",
+storageBucket: "jersify-d6ab4.firebasestorage.app",
+messagingSenderId: "282065025206",
+appId: "1:282065025206:web:3ac27e10d6e1c834f38e17"
+};
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
+var auth = firebase.auth();
+var user = null, feedSnap = null, swapSnap = null, counts = { listed: 0, swaps: 0 };
 
-    /* ---------- NAVIGATION ---------- */
-    var navButtons = document.querySelectorAll("nav button");
-    navButtons.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        document.querySelectorAll(".page").forEach(function (p) { p.classList.remove("active"); });
-        navButtons.forEach(function (b) { b.classList.remove("on"); });
-        document.getElementById(btn.dataset.page).classList.add("active");
-        btn.classList.add("on");
-        window.scrollTo(0, 0);
-      });
-    });
+function `$(id) { return document.getElementById(id); }
+function el(tag, cls, text) {
+var e = document.createElement(tag);
+if (cls) e.className = cls;
+if (text !== undefined) e.textContent = text;
+return e;
+}
+function go(page) { document.querySelector('nav button[data-page="' + page + '"]').click(); }
+function isMine(item) { return user && item.ownerId === user.uid; }
+function needLogin() {
+if (user) return false;
+alert("Please log in first (Profile tab).");
+go("profile");
+return true;
+}
+function removeBtn(col, id) {
+var b = el("button", "del", "Remove");
+b.addEventListener("click", function () {
+db.collection(col).doc(id).delete().catch(function (e) { alert("Could not remove: " + e.message); });
+});
+return b;
+}
 
-    /* ---------- LOCAL DATA (this phone only) ---------- */
-    function load(key) { return JSON.parse(localStorage.getItem(key) || "[]"); }
-    function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+/* ---------- NAVIGATION ---------- */
+var navButtons = document.querySelectorAll("nav button");
+navButtons.forEach(function (btn) {
+btn.addEventListener("click", function () {
+document.querySelectorAll(".page").forEach(function (p) { p.classList.remove("active"); });
+navButtons.forEach(function (b) { b.classList.remove("on"); });
+$`(btn.dataset.page).classList.add("active");
+btn.classList.add("on");
+window.scrollTo(0, 0);
+});
+});
 
-    var myListings = load("jersify_my_listings");
-    var mySwaps = load("jersify_my_swaps");
-    var wardrobe = load("jersify_wardrobe");
+/* ---------- WARDROBE DATA (this phone only) ---------- */
+function load(key) { return JSON.parse(localStorage.getItem(key) || "[]"); }
+function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+var wardrobe = load("jersify_wardrobe");
 
-    function updateStats() {
-      var value = 0;
-      wardrobe.forEach(function (w) { value += Number(w.value) || 0; });
-      document.getElementById("s-listed").textContent = myListings.length;
-      document.getElementById("s-swaps").textContent = mySwaps.length;
-      document.getElementById("s-ward").textContent = wardrobe.length;
-      document.getElementById("s-value").textContent = "$" + value;
-    }
+function updateStats() {
+var value = 0;
+wardrobe.forEach(function (w) { value += Number(w.value) || 0; });
+$("s-listed").textContent = counts.listed; $("s-swaps").textContent = counts.swaps;
+$("s-ward").textContent = wardrobe.length; $("s-value").textContent = "`$" + value;
+}
 
-    /* ---------- SHARED LISTINGS (Home) ---------- */
-    function renderFeed(snap) {
-      var feed = document.getElementById("feed");
-      var msg = document.getElementById("homeMsg");
-      feed.innerHTML = "";
-      msg.style.display = snap.empty ? "block" : "none";
-      msg.textContent = "No listings yet. Be the first to sell something!";
+/* ---------- LOGIN ---------- */
+function fail(e) { alert(e.message); }
+latex
+("login").addEventListener("click", function () { auth.signInWithEmailAndPassword(
 
-      snap.forEach(function (doc) {
-        var item = doc.data();
-        var card = document.createElement("div");
-        card.className = "card";
-        if (item.photo) {
-          var img = document.createElement("img");
-          img.src = item.photo;
-          card.appendChild(img);
-        }
-        var b = document.createElement("b");
-        b.textContent = item.name;
-        var p = document.createElement("p");
-        p.textContent = "Size " + item.size;
-        var price = document.createElement("span");
-        price.className = "price";
-        price.textContent = "$" + item.price;
-        card.appendChild(b);
-        card.appendChild(p);
-        card.appendChild(price);
-        if (item.score) {
-          var badge = document.createElement("span");
-          badge.className = "badge";
-          badge.textContent = "Authenticity " + item.score + "% (demo)";
-          card.appendChild(badge);
-        }
-        if (myListings.indexOf(doc.id) !== -1) {
-          var del = document.createElement("button");
-          del.className = "del";
-          del.textContent = "Remove";
-          del.addEventListener("click", function () {
-            db.collection("listings").doc(doc.id).delete();
-            myListings = myListings.filter(function (x) { return x !== doc.id; });
-            save("jersify_my_listings", myListings);
-            updateStats();
-          });
-          card.appendChild(del);
-        }
-        feed.appendChild(card);
-      });
-    }
+("email").value.trim(), latex
+("pass").value).catch(fail); }); 
 
-    db.collection("listings").orderBy("createdAt", "desc").limit(50).onSnapshot(
-      renderFeed,
-      function (err) {
-        var msg = document.getElementById("homeMsg");
-        msg.style.display = "block";
-        msg.textContent = "Could not load listings. Check that Firestore is created in test mode. (" + err.code + ")";
-      }
-    );
+("signup").addEventListener("click", function () {
+auth.createUserWithEmailAndPassword( ("pass").value).catch(fail);
+});
+latex
+("logout").addEventListener("click", function () { auth.signOut(); }); auth.onAuthStateChanged(function (u) { user = u; 
 
-    function resizePhoto(file, done) {
-      var reader = new FileReader();
-      reader.onload = function () {
-        var img = new Image();
-        img.onload = function () {
-          var scale = Math.min(1, 600 / img.width);
-          var c = document.createElement("canvas");
-          c.width = img.width * scale;
-          c.height = img.height * scale;
-          c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-          done(c.toDataURL("image/jpeg", 0.6));
-        };
-        img.src = reader.result;
-      };
-      reader.readAsDataURL(file);
-    }
+("loggedOut").style.display = u ? "none" : "block";
+ ("who").textContent = u ? u.email : "";
+$`("pass").value = "";
+renderFeed();
+renderSwaps();
+});
 
-    document.getElementById("add").addEventListener("click", function () {
-      var name = document.getElementById("name").value.trim();
-      if (!name) return;
-      var size = document.getElementById("size").value;
-      var price = document.getElementById("price").value;
-      var file = document.getElementById("photo").files[0];
-      var btn = document.getElementById("add");
+/* ---------- SHARED LISTINGS (Home) ---------- */
+function renderFeed() {
+if (!feedSnap) return;
+var feed = $("feed"), msg = $("homeMsg");
+feed.innerHTML = "";
+counts.listed = 0;
+msg.style.display = feedSnap.empty ? "block" : "none";
+msg.textContent = "No listings yet. Be the first to sell something!";
+feedSnap.forEach(function (doc) {
+var item = doc.data();
+var card = el("div", "card");
+if (item.photo) {
+var img = el("img");
+img.src = item.photo;
+card.appendChild(img);
+}
+card.appendChild(el("b", "", item.name));
+card.appendChild(el("p", "", "Size " + item.size));
+card.appendChild(el("span", "price", "`$" + item.price));
+if (item.score) card.appendChild(el("span", "badge", "Authenticity " + item.score + "% (demo)"));
+if (isMine(item)) {
+counts.listed++;
+card.appendChild(removeBtn("listings", doc.id));
+}
+feed.appendChild(card);
+});
+updateStats();
+}
 
-      function post(photo) {
-        db.collection("listings").add({
-          name: name,
-          size: size,
-          price: Number(price) || 0,
-          photo: photo,
-          score: Math.floor(70 + Math.random() * 30),
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        }).then(function (ref) {
-          myListings.push(ref.id);
-          save("jersify_my_listings", myListings);
-          updateStats();
-          document.getElementById("name").value = "";
-          document.getElementById("size").value = "";
-          document.getElementById("price").value = "";
-          document.getElementById("photo").value = "";
-          btn.disabled = false;
-          btn.textContent = "LIST JERSEY";
-          document.querySelector('nav button[data-page="home"]').click();
-        }).catch(function (err) {
-          btn.disabled = false;
-          btn.textContent = "LIST JERSEY";
-          alert("Could not post: " + err.message);
-        });
-      }
+db.collection("listings").orderBy("createdAt", "desc").limit(50).onSnapshot(
+function (snap) { feedSnap = snap; renderFeed(); },
+function (err) {
+var msg = $`("homeMsg");
+msg.style.display = "block";
+msg.textContent = "Could not load listings. (" + err.code + ")";
+}
+);
 
-      btn.disabled = true;
-      btn.textContent = "POSTING...";
-      if (file) { resizePhoto(file, post); } else { post(""); }
-    });
+function resizePhoto(file, done) {
+var reader = new FileReader();
+reader.onload = function () {
+var img = new Image();
+img.onload = function () {
+var scale = Math.min(1, 600 / img.width);
+var c = document.createElement("canvas");
+c.width = img.width * scale;
+c.height = img.height * scale;
+c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+done(c.toDataURL("image/jpeg", 0.6));
+};
+img.src = reader.result;
+};
+reader.readAsDataURL(file);
+}
 
-    /* ---------- SHARED SWAPS ---------- */
-    document.getElementById("check").addEventListener("click", function () {
-      var mine = Number(document.getElementById("mine").value);
-      var theirs = Number(document.getElementById("theirs").value);
-      var box = document.getElementById("result");
-      if (!mine || !theirs) return;
-      var diff = Math.abs(mine - theirs);
-      var pct = Math.round((diff / Math.max(mine, theirs)) * 100);
-      box.style.display = "block";
-      if (pct <= 15) {
-        box.className = "card result fair";
-        box.textContent = "Fair trade! Only " + pct + "% apart.";
-      } else {
-        box.className = "card result unfair";
-        var who = mine < theirs ? "You" : "They";
-        box.textContent = "Not balanced (" + pct + "% apart). " + who + " should add about $" + diff + ".";
-      }
-    });
+$("add").addEventListener("click", function () { if (needLogin()) return; var name = $("name").value.trim();
+if (!name) return;
+var size = $("size").value, price = $("price").value;
+var file = $("photo").files[0], btn = $("add");
 
-    function renderSwaps(snap) {
-      var list = document.getElementById("slist");
-      list.innerHTML = "";
-      snap.forEach(function (doc) {
-        var s = doc.data();
-        var card = document.createElement("div");
-        card.className = "card";
-        var b = document.createElement("b");
-        b.textContent = s.name;
-        var p = document.createElement("p");
-        p.textContent = "Wants: " + (s.want || "open to offers");
-        var v = document.createElement("span");
-        v.className = "price";
-        v.textContent = "$" + (s.value || 0);
-        card.appendChild(b);
-        card.appendChild(p);
-        card.appendChild(v);
-        if (mySwaps.indexOf(doc.id) !== -1) {
-          var del = document.createElement("button");
-          del.className = "del";
-          del.textContent = "Remove";
-          del.addEventListener("click", function () {
-            db.collection("swaps").doc(doc.id).delete();
-            mySwaps = mySwaps.filter(function (x) { return x !== doc.id; });
-            save("jersify_my_swaps", mySwaps);
-            updateStats();
-          });
-          card.appendChild(del);
-        }
-        list.appendChild(card);
-      });
-    }
+function post(photo) {
+db.collection("listings").add({
+name: name,
+size: size,
+price: Number(price) || 0,
+photo: photo,
+score: Math.floor(70 + Math.random() * 30),
+ownerId: user.uid,
+createdAt: firebase.firestore.FieldValue.serverTimestamp()
+}).then(function () {
+["name", "size", "price", "photo"].forEach(function (id) { `$(id).value = ""; });
+btn.disabled = false;
+btn.textContent = "LIST JERSEY";
+go("home");
+}).catch(function (err) {
+btn.disabled = false;
+btn.textContent = "LIST JERSEY";
+alert("Could not post: " + err.message);
+});
+}
 
-    db.collection("swaps").orderBy("createdAt", "desc").limit(50).onSnapshot(renderSwaps, function () {});
+btn.disabled = true;
+btn.textContent = "POSTING...";
+if (file) { resizePhoto(file, post); } else { post(""); }
+});
 
-    document.getElementById("sadd").addEventListener("click", function () {
-      var name = document.getElementById("sname").value.trim();
-      if (!name) return;
-      db.collection("swaps").add({
-        name: name,
-        value: Number(document.getElementById("svalue").value) || 0,
-        want: document.getElementById("swant").value,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      }).then(function (ref) {
-        mySwaps.push(ref.id);
-        save("jersify_my_swaps", mySwaps);
-        updateStats();
-        document.getElementById("sname").value = "";
-        document.getElementById("svalue").value = "";
-        document.getElementById("swant").value = "";
-      }).catch(function (err) {
-        alert("Could not post: " + err.message);
-      });
-    });
+/* ---------- SHARED SWAPS ---------- */
+latex
+("check").addEventListener("click", function () { var mine = Number(
 
-    /* ---------- WARDROBE (private, this phone only) ---------- */
-    function renderWardrobe() {
-      var list = document.getElementById("wlist");
-      list.innerHTML = "";
-      var total = 0;
-      wardrobe.forEach(function (w, i) {
-        total += Number(w.value) || 0;
-        var card = document.createElement("div");
-        card.className = "card";
-        var b = document.createElement("b");
-        b.textContent = w.name;
-        var p = document.createElement("p");
-        p.textContent = "Estimated value";
-        var v = document.createElement("span");
-        v.className = "price";
-        v.textContent = "$" + (w.value || 0);
-        var del = document.createElement("button");
-        del.className = "del";
-        del.textContent = "Remove";
-        del.addEventListener("click", function () {
-          wardrobe.splice(i, 1);
-          save("jersify_wardrobe", wardrobe);
-          renderWardrobe();
-        });
-        card.appendChild(b);
-        card.appendChild(p);
-        card.appendChild(v);
-        card.appendChild(del);
-        list.appendChild(card);
-      });
-      document.getElementById("total").textContent = "$" + total;
-      updateStats();
-    }
+("mine").value), theirs = Number( ("result");
+if (!mine || !theirs) return;
+var diff = Math.abs(mine - theirs);
+var pct = Math.round((diff / Math.max(mine, theirs)) * 100);
+box.style.display = "block";
+if (pct <= 15) {
+box.className = "card result fair";
+box.textContent = "Fair trade! Only " + pct + "% apart.";
+} else {
+box.className = "card result unfair";
+var who = mine < theirs ? "You" : "They";
+box.textContent = "Not balanced (" + pct + "% apart). " + who + " should add about $`" + diff + ".";
+}
+});
 
-    document.getElementById("wadd").addEventListener("click", function () {
-      var name = document.getElementById("wname").value.trim();
-      if (!name) return;
-      wardrobe.push({ name: name, value: document.getElementById("wvalue").value });
-      save("jersify_wardrobe", wardrobe);
-      renderWardrobe();
-      document.getElementById("wname").value = "";
-      document.getElementById("wvalue").value = "";
-    });
+function renderSwaps() {
+if (!swapSnap) return;
+var list = $("slist"); list.innerHTML = ""; counts.swaps = 0; swapSnap.forEach(function (doc) { var s = doc.data(); var card = el("div", "card"); card.appendChild(el("b", "", s.name)); card.appendChild(el("p", "", "Wants: " + (s.want || "open to offers"))); card.appendChild(el("span", "price", "$" + (s.value || 0)));
+if (isMine(s)) {
+counts.swaps++;
+card.appendChild(removeBtn("swaps", doc.id));
+}
+list.appendChild(card);
+});
+updateStats();
+}
 
-    document.getElementById("clear").addEventListener("click", function () {
-      if (confirm("Delete all your wardrobe items?")) {
-        wardrobe = [];
-        save("jersify_wardrobe", wardrobe);
-        renderWardrobe();
-      }
-    });
+db.collection("swaps").orderBy("createdAt", "desc").limit(50).onSnapshot(
+function (snap) { swapSnap = snap; renderSwaps(); },
+function () {}
+);
 
-    renderWardrobe();
-    updateStats();
-  </script>
+$("sadd").addEventListener("click", function () { if (needLogin()) return; var name = $("sname").value.trim();
+if (!name) return;
+db.collection("swaps").add({
+name: name,
+value: Number($("svalue").value) || 0, want: $("swant").value,
+ownerId: user.uid,
+createdAt: firebase.firestore.FieldValue.serverTimestamp()
+}).then(function () {
+["sname", "svalue", "swant"].forEach(function (id) { `$(id).value = ""; });
+}).catch(function (err) {
+alert("Could not post: " + err.message);
+});
+});
+
+/* ---------- WARDROBE (private, this phone only) ---------- */
+function renderWardrobe() {
+var list = latex
+("wlist"); list.innerHTML = ""; var total = 0; wardrobe.forEach(function (w, i) { total += Number(w.value) || 0; var card = el("div", "card"); card.appendChild(el("b", "", w.name)); card.appendChild(el("p", "", "Estimated value")); card.appendChild(el("span", "price", "
+
+" + (w.value || 0)));
+var del = el("button", "del", "Remove");
+del.addEventListener("click", function () {
+wardrobe.splice(i, 1);
+save("jersify_wardrobe", wardrobe);
+renderWardrobe();
+});
+card.appendChild(del);
+list.appendChild(card);
+});
+ " + total;
+updateStats();
+}
+
+latex
+("wadd").addEventListener("click", function () { var name = 
+
+("wname").value.trim();
+if (!name) return;
+wardrobe.push({ name: name, value: latex
+("wvalue").value }); save("jersify_wardrobe", wardrobe); renderWardrobe(); 
+
+("wname").value = "";
+$`("wvalue").value = "";
+});
+
+`$("clear").addEventListener("click", function () {
+if (confirm("Delete all your wardrobe items?")) {
+wardrobe = [];
+save("jersify_wardrobe", wardrobe);
+renderWardrobe();
+}
+});
+
+renderWardrobe();
+</script>
 </body>
 </html>
