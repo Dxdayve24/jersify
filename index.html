@@ -2,617 +2,861 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#101012">
-<title>JERSIFY | Jersey Marketplace</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101010">
+<title>JERSIFY — Football Jersey Marketplace</title>
 <style>
-:root{--red:#c1121f;--dark:#101012;--green:#00e676;--paper:#f5f5f7;--muted:#74747e}
+:root{--bg:#101010;--panel:#1b1b1b;--line:#333;--text:#f6f6f6;--muted:#aaa;--accent:#c8ff3d;--danger:#ff6b6b}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:var(--paper);color:#151519;padding-bottom:85px}
-header{background:var(--dark);color:white;padding:18px;border-bottom:3px solid var(--green);position:sticky;top:0;z-index:10}
-header h1{margin:0;letter-spacing:5px;font-size:27px}
-header small{color:#aaa;letter-spacing:1px}
-main{max-width:850px;margin:auto;padding:18px 15px}
-.page{display:none}.page.active{display:block}
-h2{font-size:27px;margin:8px 0}
-h3{margin:22px 0 12px}
-.lead{color:#666;font-size:14px;line-height:1.6}
-.hero{background:linear-gradient(135deg,#17171b,#33333a);color:white;padding:24px;border-radius:22px;margin-bottom:22px}
-.hero h2{font-size:30px;max-width:300px}
-.hero p{color:#ccc;line-height:1.6;font-size:14px}
-.card{background:white;border-radius:18px;padding:16px;margin-bottom:15px;box-shadow:0 5px 18px #0000000c;overflow-wrap:anywhere}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.product{padding:0;overflow:hidden}
-.product img{width:100%;height:165px;object-fit:cover;background:#eee;display:block;cursor:pointer}
-.product-info{padding:12px}
-.product-title{font-weight:800;font-size:15px}
-.muted{color:var(--muted);font-size:12px}
-.price{color:var(--red);font-size:20px;font-weight:900;margin:8px 0}
-label{display:block;font-size:12px;font-weight:bold;margin:14px 0 7px}
-input,select,textarea{width:100%;padding:13px;border:1px solid #ddd;border-radius:12px;background:white;font-size:16px;color:#111}
-textarea{resize:vertical;min-height:75px}
-input:focus,select:focus,textarea:focus{outline:2px solid #c1121f44;border-color:var(--red)}
-input[type=file]{font-size:12px;padding:10px}
-.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.btn{width:100%;padding:14px;border-radius:12px;border:1px solid var(--green);background:var(--dark);color:white;font-size:13px;font-weight:900;cursor:pointer;margin-top:10px}
-.btn:disabled{opacity:.5;cursor:wait}
-.btn-green{background:var(--green);color:#111}
-.btn-light{background:#eee;color:#222;border-color:#ddd}
-.btn-danger{background:#fff0f0;color:#a00;border-color:#ffd0d0}
-.btn-small{width:auto;padding:9px 12px;font-size:11px}
-.result{padding:15px;border-radius:12px;margin-top:12px;font-weight:bold;line-height:1.5}
-.fair{background:#dcffec;color:#075c32}
-.unfair{background:#fff0d8;color:#754500}
-.status{font-size:10px;font-weight:bold;border-radius:20px;padding:6px 9px;background:#eee;white-space:nowrap}
-.open{background:#dcffec;color:#075c32}
-.pending{background:#fff0d8;color:#754500}
-.swapped{background:#dceaff;color:#174c92}
-.swaphead{display:flex;justify-content:space-between;align-items:start;gap:10px}
-.empty{padding:24px 15px;text-align:center;border:1px dashed #ccc;border-radius:15px;color:#777;font-size:13px;line-height:1.5}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stat{background:white;border-radius:15px;padding:15px}
-.stat span{display:block;font-size:11px;color:#777;margin-bottom:8px}
-.stat strong{font-size:24px}
-.preview{width:100%;max-height:260px;object-fit:contain;border-radius:12px;margin-top:10px;background:#eee}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--dark);border-top:2px solid #333;z-index:20;padding-bottom:env(safe-area-inset-bottom)}
-nav button{flex:1;min-width:0;padding:12px 2px;background:none;color:#999;border:0;border-top:3px solid transparent;font-size:11px}
-nav button.on{color:white;border-top-color:var(--green)}
-nav span{display:block;font-size:17px;margin-bottom:4px}
-#toast{position:fixed;bottom:95px;left:15px;right:15px;background:#101012;color:white;padding:14px;border-radius:12px;display:none;z-index:50;text-align:center;font-size:13px}
-#photoViewer{display:none;position:fixed;inset:0;background:#000e;z-index:100;align-items:center;justify-content:center;padding:20px}
-#photoViewer img{max-width:100%;max-height:80vh;object-fit:contain}
-#photoViewer button{position:absolute;top:20px;right:20px;background:white;border:0;border-radius:50%;padding:12px}
-@media(min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:360px){.formgrid{grid-template-columns:1fr}.hero h2{font-size:25px}}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{padding:20px 16px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#101010;z-index:5}
+.brand{font-size:25px;font-weight:900;letter-spacing:1px}
+.brand span{color:var(--accent)}
+.tagline{font-size:12px;color:var(--muted);margin-top:5px}
+.currencybar{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:12px;color:var(--muted)}
+select,input,textarea,button{font:inherit}
+select,input,textarea{background:#111;color:var(--text);border:1px solid #444;border-radius:9px;padding:11px;width:100%}
+.currencybar select{width:auto;max-width:150px;padding:8px}
+nav{display:flex;gap:6px;overflow-x:auto;padding:10px;background:#101010;position:sticky;top:116px;z-index:4;border-bottom:1px solid var(--line)}
+nav button{background:transparent;color:#bbb;border:0;padding:10px 12px;border-radius:8px;white-space:nowrap}
+nav button.active{background:var(--accent);color:#111;font-weight:bold}
+main{max-width:850px;margin:auto;padding:16px 14px 70px}
+section{display:none}
+section.active{display:block}
+h1{font-size:25px;margin:10px 0}
+h2{font-size:19px;margin:12px 0}
+p{line-height:1.5}
+.muted{color:var(--muted);font-size:13px}
+.form{display:grid;gap:12px;margin:16px 0}
+label{display:grid;gap:7px;font-size:13px;color:#ddd}
+button.primary{background:var(--accent);color:#111;font-weight:bold;border:0;border-radius:9px;padding:12px 15px;cursor:pointer}
+button.secondary{background:#292929;color:white;border:1px solid #444;border-radius:9px;padding:10px 12px;cursor:pointer}
+button.danger{background:#361c1c;color:#ffaaaa;border:1px solid #6b3333;border-radius:9px;padding:10px}
+button:disabled{opacity:.45}
+.toolbar{display:flex;gap:8px;margin:15px 0}
+.toolbar input{flex:1;min-width:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:15px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;overflow:hidden}
+.card img{width:100%;height:210px;object-fit:cover;background:#252525;display:block}
+.cardbody{padding:13px}
+.card h3{font-size:17px;margin:0 0 8px;overflow-wrap:anywhere}
+.price{font-weight:bold;color:var(--accent);font-size:16px}
+.estimate{font-size:12px;color:var(--muted);margin-top:5px}
+.meta{font-size:12px;color:var(--muted);margin:8px 0}
+.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.actions button{font-size:12px}
+.notice{background:#20251a;border:1px solid #48552b;color:#e8ffc0;padding:12px;border-radius:10px;font-size:13px;margin:12px 0}
+.error{color:#ff9999;font-size:13px;white-space:pre-wrap}
+.success{color:var(--accent);font-size:13px;white-space:pre-wrap}
+.empty{padding:24px;text-align:center;color:var(--muted);border:1px dashed #444;border-radius:12px;margin-top:15px}
+.preview{max-width:100%;max-height:220px;object-fit:contain;border-radius:10px}
+.offer{background:#1b1b1b;border:1px solid #333;border-radius:10px;padding:13px;margin:10px 0}
+hr{border:0;border-top:1px solid #333;margin:18px 0}
+footer{text-align:center;color:#777;font-size:12px;padding:20px}
+a{color:var(--accent)}
+@media(max-width:480px){header{padding:16px 12px 12px}nav{top:112px}main{padding:12px} .card img{height:190px}}
 </style>
 </head>
 <body>
-
 <header>
-<h1>JERSIFY</h1>
-<small>The next-generation jersey marketplace</small>
+  <div class="brand">JER<span>SIFY</span></div>
+  <div class="tagline">Football jerseys. Collect, sell and swap worldwide.</div>
+  <div class="currencybar">
+    <span>Show estimates in</span>
+    <select id="displayCurrency" onchange="changeDisplayCurrency(this.value)">
+      <option value="USD">USD — $</option>
+      <option value="NGN">NGN — ₦</option>
+      <option value="GBP">GBP — £</option>
+      <option value="EUR">EUR — €</option>
+      <option value="CAD">CAD — $</option>
+      <option value="AUD">AUD — $</option>
+      <option value="ZAR">ZAR — R</option>
+      <option value="GHS">GHS — ₵</option>
+      <option value="KES">KES — KSh</option>
+      <option value="INR">INR — ₹</option>
+      <option value="JPY">JPY — ¥</option>
+    </select>
+  </div>
+  <div id="rateStatus" class="tagline">Loading exchange rates…</div>
 </header>
 
+<nav>
+  <button class="active" data-tab="home" onclick="showTab('home',this)">Explore</button>
+  <button data-tab="sell" onclick="showTab('sell',this)">Sell</button>
+  <button data-tab="swap" onclick="showTab('swap',this)">Swap</button>
+  <button data-tab="wardrobe" onclick="showTab('wardrobe',this)">Wardrobe</button>
+  <button data-tab="profile" onclick="showTab('profile',this)">Account</button>
+</nav>
+
 <main>
-<section id="home" class="page active">
-<div class="hero">
-<small style="color:#00e676;font-weight:bold">YOUR NEXT KIT IS HERE</small>
-<h2>Find it. Trade it. Wear it.</h2>
-<p>Discover jerseys, grow your collection, and trade with football fans.</p>
-<button class="btn btn-green" onclick="go('sell')">+ LIST A JERSEY</button>
-</div>
-<label for="search">Search jerseys</label>
-<input id="search" placeholder="Search club, country or jersey..." oninput="renderFeed()">
-<h3>Fresh on the market</h3>
-<div id="homeMsg" class="empty">Loading jerseys...</div>
-<div id="feed" class="grid"></div>
+<section id="home" class="active">
+  <h1>Find your next jersey.</h1>
+  <p class="muted">Discover jerseys listed by fans. Prices remain in the seller's currency; converted amounts are estimates.</p>
+  <div class="toolbar">
+    <input id="searchBox" placeholder="Search jersey, team or size…" oninput="renderListings()">
+  </div>
+  <div id="listingFeed" class="grid"><div class="empty">Loading jerseys…</div></div>
 </section>
 
-<section id="sell" class="page">
-<h2>List a jersey</h2>
-<p class="lead">Take a new picture or choose one from your gallery.</p>
-<div class="card">
-<label for="name">Jersey name *</label>
-<input id="name" placeholder="e.g. Nigeria Home Jersey 2024" maxlength="90">
-<div class="formgrid">
-<div><label for="size">Size *</label>
-<select id="size"><option value="">Choose size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>XXXL</option><option>Kids</option><option>Other</option></select></div>
-<div><label for="price">Price (NGN) *</label><input id="price" type="number" min="1" step="1" placeholder="35000"></div>
-</div>
-<label for="sellerPhone">WhatsApp number (include country code)</label>
-<input id="sellerPhone" type="tel" placeholder="2348012345678">
-<label for="photoCamera">Take a photo with camera</label>
-<input id="photoCamera" type="file" accept="image/*" capture="environment">
-<label for="photoGallery">Or upload from gallery</label>
-<input id="photoGallery" type="file" accept="image/*">
-<img id="listingPreview" class="preview" hidden alt="Jersey preview">
-<button class="btn" id="add">PUBLISH LISTING ↗</button>
-<p class="muted">Sign in to publish. Only upload pictures you have permission to use.</p>
-</div>
+<section id="sell">
+  <h1>Sell a jersey</h1>
+  <p class="muted">Choose the currency in which you actually want to sell. Upload a clear photo.</p>
+  <div id="sellMessage"></div>
+  <form id="sellForm" class="form">
+    <label>Jersey name / team
+      <input id="listingName" maxlength="90" required placeholder="e.g. Nigeria 2024 Home Jersey">
+    </label>
+    <label>Size
+      <select id="listingSize" required>
+        <option value="">Choose size</option>
+        <option>XS</option><option>S</option><option>M</option><option>L</option>
+        <option>XL</option><option>XXL</option><option>XXXL</option><option>Kids</option><option>Other</option>
+      </select>
+    </label>
+    <label>Price in your currency
+      <input id="listingPrice" type="number" min="0" step="0.01" required placeholder="e.g. 25000">
+    </label>
+    <label>Original currency
+      <select id="listingCurrency" required>
+        <option value="NGN">NGN — Nigerian naira</option>
+        <option value="USD">USD — US dollar</option>
+        <option value="GBP">GBP — British pound</option>
+        <option value="EUR">EUR — euro</option>
+        <option value="CAD">CAD — Canadian dollar</option>
+        <option value="AUD">AUD — Australian dollar</option>
+        <option value="ZAR">ZAR — South African rand</option>
+        <option value="GHS">GHS — Ghanaian cedi</option>
+        <option value="KES">KES — Kenyan shilling</option>
+        <option value="INR">INR — Indian rupee</option>
+        <option value="JPY">JPY — Japanese yen</option>
+      </select>
+    </label>
+    <label>Your country
+      <input id="listingCountry" maxlength="80" required placeholder="e.g. Nigeria">
+    </label>
+    <label>WhatsApp number with country code (optional)
+      <input id="listingPhone" maxlength="30" placeholder="e.g. +2348012345678">
+    </label>
+    <label>Jersey photo — camera or gallery
+      <input id="listingPhoto" type="file" accept="image/*" capture="environment" required>
+    </label>
+    <img id="listingPreview" class="preview" hidden alt="Jersey photo preview">
+    <button class="primary" type="submit">Publish jersey</button>
+  </form>
 </section>
 
-<section id="swap" class="page">
-<h2>The Swap Room</h2>
-<p class="lead">Compare jersey values and trade with other fans.</p>
-<div class="card">
-<h3 style="margin-top:0">Fair trade checker</h3>
-<div class="formgrid">
-<div><label for="mine">Your jersey (NGN)</label><input id="mine" type="number" min="1" placeholder="40000"></div>
-<div><label for="theirs">Their jersey (NGN)</label><input id="theirs" type="number" min="1" placeholder="45000"></div>
-</div>
-<button class="btn" id="check">CHECK FAIRNESS</button>
-<div id="result"></div>
-</div>
-<h3>Post a swap</h3>
-<div class="card">
-<label for="sname">Jersey you're offering *</label>
-<input id="sname" placeholder="e.g. Arsenal Away Jersey">
-<div class="formgrid">
-<div><label for="svalue">Estimated value (NGN) *</label><input id="svalue" type="number" min="1" placeholder="35000"></div>
-<div><label for="ssize">Size</label><select id="ssize"><option value="">Choose size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>XXXL</option><option>Kids</option><option>Other</option></select></div>
-</div>
-<label for="swant">What do you want in return? *</label>
-<input id="swant" placeholder="e.g. Real Madrid home jersey">
-<label for="sphone">WhatsApp number (include country code)</label>
-<input id="sphone" type="tel" placeholder="2348012345678">
-<label for="sphotoCamera">Take a swap photo</label>
-<input id="sphotoCamera" type="file" accept="image/*" capture="environment">
-<label for="sphotoGallery">Or choose from gallery</label>
-<input id="sphotoGallery" type="file" accept="image/*">
-<img id="swapPreview" class="preview" hidden alt="Swap photo preview">
-<button class="btn" id="sadd">POST MY SWAP ↗</button>
-</div>
-<h3>Community swaps</h3>
-<div id="swapMsg" class="empty">Loading swaps...</div>
-<div id="slist"></div>
+<section id="swap">
+  <h1>Swap Room</h1>
+  <p class="muted">Offer a jersey in exchange for another. Compare values only when exchange-rate estimates are available.</p>
+  <div id="swapMessage"></div>
+  <form id="swapForm" class="form">
+    <label>Jersey you have
+      <input id="swapName" maxlength="90" required placeholder="e.g. Arsenal 2023 Away">
+    </label>
+    <label>Size
+      <select id="swapSize" required>
+        <option value="">Choose size</option>
+        <option>XS</option><option>S</option><option>M</option><option>L</option>
+        <option>XL</option><option>XXL</option><option>XXXL</option><option>Kids</option><option>Other</option>
+      </select>
+    </label>
+    <label>Estimated value in your currency
+      <input id="swapValue" type="number" min="0.01" step="0.01" required placeholder="e.g. 50">
+    </label>
+    <label>Original currency
+      <select id="swapCurrency" required>
+        <option value="NGN">NGN — Nigerian naira</option>
+        <option value="USD">USD — US dollar</option>
+        <option value="GBP">GBP — British pound</option>
+        <option value="EUR">EUR — euro</option>
+        <option value="CAD">CAD — Canadian dollar</option>
+        <option value="AUD">AUD — Australian dollar</option>
+        <option value="ZAR">ZAR — South African rand</option>
+        <option value="GHS">GHS — Ghanaian cedi</option>
+        <option value="KES">KES — Kenyan shilling</option>
+        <option value="INR">INR — Indian rupee</option>
+        <option value="JPY">JPY — Japanese yen</option>
+      </select>
+    </label>
+    <label>What jersey do you want?
+      <input id="swapWant" maxlength="150" required placeholder="e.g. Barcelona home jersey">
+    </label>
+    <label>Your country
+      <input id="swapCountry" maxlength="80" required placeholder="e.g. Nigeria">
+    </label>
+    <label>Jersey photo — camera or gallery
+      <input id="swapPhoto" type="file" accept="image/*" capture="environment" required>
+    </label>
+    <img id="swapPreview" class="preview" hidden alt="Swap jersey photo preview">
+    <button class="primary" type="submit">Post swap</button>
+  </form>
+  <hr>
+  <h2>Available swaps</h2>
+  <div id="swapFeed" class="grid"><div class="empty">Loading swaps…</div></div>
 </section>
 
-<section id="wardrobe" class="page">
-<h2>My Wardrobe</h2>
-<p class="lead">Keep track of your personal jersey collection on this device.</p>
-<div class="card" style="background:#101012;color:white">
-<span class="muted">COLLECTION VALUE</span>
-<div id="total" style="color:#00e676;font-size:30px;font-weight:900">₦0</div>
-</div>
-<div class="card">
-<label for="wname">Jersey name *</label><input id="wname" placeholder="Jersey name">
-<div class="formgrid">
-<div><label for="wvalue">Estimated value (NGN)</label><input id="wvalue" type="number" min="0" placeholder="40000"></div>
-<div><label for="wsize">Size</label><select id="wsize"><option value="">Choose size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>XXXL</option><option>Kids</option><option>Other</option></select></div>
-</div>
-<button class="btn" id="wadd">+ ADD TO WARDROBE</button>
-</div>
-<div id="wlist"></div>
+<section id="wardrobe">
+  <h1>My Wardrobe</h1>
+  <p class="muted">A private list saved in this browser on this device.</p>
+  <form id="wardrobeForm" class="form">
+    <label>Jersey name
+      <input id="wardrobeName" maxlength="100" required placeholder="Jersey in your collection">
+    </label>
+    <label>Size (optional)
+      <input id="wardrobeSize" maxlength="20" placeholder="e.g. M">
+    </label>
+    <button class="primary" type="submit">Add to wardrobe</button>
+  </form>
+  <div id="wardrobeList"></div>
 </section>
 
-<section id="profile" class="page">
-<h2>Profile & Offers</h2>
-<p class="lead">Manage your account and swap activity.</p>
-<div class="card">
-<div id="loggedOut">
-<h3 style="margin-top:0">Welcome to Jersify</h3>
-<label for="email">Email address</label><input id="email" type="email" autocomplete="email" placeholder="you@example.com">
-<label for="pass">Password</label><input id="pass" type="password" autocomplete="current-password" placeholder="At least 6 characters">
-<div class="formgrid">
-<button class="btn" id="login">LOG IN</button>
-<button class="btn btn-green" id="signup">SIGN UP</button>
-</div>
-</div>
-<div id="loggedIn" style="display:none">
-<span class="status open">SIGNED IN</span>
-<p id="who"></p>
-<button class="btn btn-light" id="logout">LOG OUT</button>
-</div>
-</div>
-<div class="stats">
-<div class="stat"><span>MY LISTINGS</span><strong id="s-listed">0</strong></div>
-<div class="stat"><span>MY SWAPS</span><strong id="s-swaps">0</strong></div>
-<div class="stat"><span>WARDROBE ITEMS</span><strong id="s-ward">0</strong></div>
-<div class="stat"><span>COLLECTION VALUE</span><strong id="s-value">₦0</strong></div>
-</div>
-<h3>Incoming swap offers</h3>
-<div id="inboxMsg" class="empty">Sign in to view offers.</div>
-<div id="inbox"></div>
-<h3>My favorites</h3>
-<div id="favlist"></div>
-<p class="muted">Before launch, configure Firebase security rules and image storage.</p>
-<button class="btn btn-danger" id="clear">CLEAR MY LOCAL WARDROBE</button>
+<section id="profile">
+  <h1>Your account</h1>
+  <div id="authStatus" class="notice">Checking account…</div>
+  <div id="authForms">
+    <form id="signupForm" class="form">
+      <h2>Create account</h2>
+      <label>Email
+        <input id="signupEmail" type="email" required autocomplete="email">
+      </label>
+      <label>Password (at least 6 characters)
+        <input id="signupPassword" type="password" minlength="6" required autocomplete="new-password">
+      </label>
+      <button class="primary" type="submit">Create account</button>
+    </form>
+    <hr>
+    <form id="loginForm" class="form">
+      <h2>Sign in</h2>
+      <label>Email
+        <input id="loginEmail" type="email" required autocomplete="email">
+      </label>
+      <label>Password
+        <input id="loginPassword" type="password" required autocomplete="current-password">
+      </label>
+      <button class="primary" type="submit">Sign in</button>
+    </form>
+  </div>
+  <div id="accountActions" hidden>
+    <button class="secondary" onclick="logout()">Sign out</button>
+    <h2>Offers on your swaps</h2>
+    <div id="incomingOffers"></div>
+    <h2>Offers you made</h2>
+    <div id="outgoingOffers"></div>
+  </div>
+  <div id="authMessage"></div>
 </section>
 </main>
 
-<nav>
-<button class="on" data-page="home"><span>⌂</span>Home</button>
-<button data-page="sell"><span>＋</span>Sell</button>
-<button data-page="swap"><span>⇄</span>Swap</button>
-<button data-page="wardrobe"><span>▣</span>Wardrobe</button>
-<button data-page="profile"><span>◉</span>Profile</button>
-</nav>
+<footer>JERSIFY · Built for football jersey fans worldwide</footer>
 
-<div id="toast"></div>
-<div id="photoViewer" onclick="closeViewer()">
-<button onclick="closeViewer()">✕</button>
-<img id="viewerImg" alt="Full jersey photo">
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script>
-var firebaseConfig={
-apiKey:"AIzaSyAj6JfHidij2AVAWckWl42dUDGVX64ukKk",
-authDomain:"jersify-d6ab4.firebaseapp.com",
-projectId:"jersify-d6ab4",
-storageBucket:"jersify-d6ab4.firebasestorage.app",
-messagingSenderId:"282065025206",
-appId:"1:282065025206:web:3ac27e10d6e1c834f38e17"
+"use strict";
+
+/* Keep this configuration matched to your Firebase project. */
+const firebaseConfig = {
+  apiKey: "AIzaSyAj6JfHidij2AVAWckWl42dUDGVX64ukKk",
+  authDomain: "jersify-d6ab4.firebaseapp.com",
+  projectId: "jersify-d6ab4",
+  storageBucket: "jersify-d6ab4.firebasestorage.app",
+  messagingSenderId: "282065025206",
+  appId: "1:282065025206:web:3ac27e10d6e1c834f38e17"
 };
 
 firebase.initializeApp(firebaseConfig);
-var db=firebase.firestore();
-var auth=firebase.auth();
-var user=null,feedSnap=null,swapSnap=null,offerUnsub=null;
-var wardrobe=load("jersify_wardrobe",[]);
-var favorites=load("jersify_favorites",[]);
-var sellerPhones=load("jersify_phones",{});
-var currentPhoto="",currentSwapPhoto="";
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-function $(id){return document.getElementById(id)}
-function load(key,fallback){
- try{return JSON.parse(localStorage.getItem(key))||fallback}catch(e){return fallback}
-}
-function save(key,value){localStorage.setItem(key,JSON.stringify(value))}
-function money(v){
- return "₦"+(Number(v)||0).toLocaleString("en-NG",{maximumFractionDigits:0})
-}
-function toast(message){
- var t=$("toast");t.textContent=message;t.style.display="block";
- clearTimeout(window.toastTimer);
- window.toastTimer=setTimeout(function(){t.style.display="none"},3000);
-}
-function node(tag,cls,text){
- var n=document.createElement(tag);
- if(cls)n.className=cls;
- if(text!==undefined)n.textContent=text;
- return n;
-}
-function go(page){
- document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active")});
- document.querySelectorAll("nav button").forEach(function(b){b.classList.toggle("on",b.dataset.page===page)});
- $(page).classList.add("active");
- window.scrollTo(0,0);
- if(page==="profile"){renderInbox();renderFavorites()}
- if(page==="wardrobe")renderWardrobe();
-}
-document.querySelectorAll("nav button").forEach(function(b){
- b.addEventListener("click",function(){go(b.dataset.page)});
-});
-function needLogin(){
- if(user)return false;
- toast("Please sign in first.");
- go("profile");
- return true;
-}
-function reportError(e){
- console.error(e);
- toast(e.message||"Something went wrong. Check your connection and Firebase settings.");
-}
-function closeViewer(){$("photoViewer").style.display="none"}
-function viewPhoto(src){
- if(!src)return;
- $("viewerImg").src=src;
- $("photoViewer").style.display="flex";
-}
-$("photoViewer").querySelector("img").addEventListener("click",function(e){e.stopPropagation()});
-$("photoViewer").querySelector("button").addEventListener("click",function(e){e.stopPropagation();closeViewer()});
+const CURRENCIES = ["NGN","USD","GBP","EUR","CAD","AUD","ZAR","GHS","KES","INR","JPY"];
+let currentUser = null;
+let listings = [];
+let swaps = [];
+let rates = null;
+let rateDate = "";
 
-function resizePhoto(file,callback){
- if(!file){callback("");return}
- if(!file.type.startsWith("image/")){toast("Choose an image file.");return}
- if(file.size>8*1024*1024){toast("Choose an image smaller than 8 MB.");return}
- var reader=new FileReader();
- reader.onload=function(){
-  var img=new Image();
-  img.onload=function(){
-   var scale=Math.min(1,700/img.width,700/img.height);
-   var c=document.createElement("canvas");
-   c.width=Math.max(1,Math.round(img.width*scale));
-   c.height=Math.max(1,Math.round(img.height*scale));
-   c.getContext("2d").drawImage(img,0,0,c.width,c.height);
-   callback(c.toDataURL("image/jpeg",.6));
-  };
-  img.onerror=function(){toast("Could not open the image.")};
-  img.src=reader.result;
- };
- reader.onerror=function(){toast("Could not read the image.")};
- reader.readAsDataURL(file);
+const $ = id => document.getElementById(id);
+
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[ch]));
 }
-function setupPhoto(cameraId,galleryId,previewId,callback){
- function changed(file){
-  if(!file)return;
-  resizePhoto(file,function(data){
-   if(!data)return;
-   $(previewId).src=data;
-   $(previewId).hidden=false;
-   callback(data);
+
+function message(id, text, isError=false) {
+  const el = $(id);
+  if (!el) return;
+  el.className = isError ? "error" : "success";
+  el.textContent = text;
+}
+
+function requireLogin() {
+  if (currentUser) return true;
+  alert("Please create an account or sign in first.");
+  showTab("profile", document.querySelector('[data-tab="profile"]'));
+  return false;
+}
+
+function showTab(tab, button) {
+  document.querySelectorAll("main section").forEach(el =>
+    el.classList.toggle("active", el.id === tab)
+  );
+  document.querySelectorAll("nav button").forEach(el =>
+    el.classList.toggle("active", el.dataset.tab === tab)
+  );
+  if (button) button.classList.add("active");
+  if (tab === "wardrobe") renderWardrobe();
+  if (tab === "profile") renderOffers();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function getDisplayCurrency() {
+  const saved = localStorage.getItem("jersifyDisplayCurrency") || "USD";
+  return CURRENCIES.includes(saved) ? saved : "USD";
+}
+
+function changeDisplayCurrency(currency) {
+  if (!CURRENCIES.includes(currency)) return;
+  localStorage.setItem("jersifyDisplayCurrency", currency);
+  renderListings();
+  renderSwaps();
+  renderOffers();
+}
+
+function money(amount, currency) {
+  try {
+    return new Intl.NumberFormat("en", {
+      style:"currency",
+      currency,
+      maximumFractionDigits:2
+    }).format(amount);
+  } catch {
+    return Number(amount).toFixed(2) + " " + currency;
+  }
+}
+
+function convert(amount, from, to) {
+  if (!rates || typeof rates[from] !== "number" ||
+      typeof rates[to] !== "number" || !Number.isFinite(Number(amount))) {
+    return null;
+  }
+  return (Number(amount) / rates[from]) * rates[to];
+}
+
+function priceHTML(amount, currency) {
+  const original = money(Number(amount), currency);
+  const target = getDisplayCurrency();
+  const converted = currency === target ? null : convert(Number(amount), currency, target);
+  if (currency === target) {
+    return '<div class="price">' + esc(original) + '</div>';
+  }
+  if (converted === null) {
+    return '<div class="price">' + esc(original) + '</div>' +
+      '<div class="estimate">Conversion unavailable · original price shown</div>';
+  }
+  return '<div class="price">' + esc(original) + '</div>' +
+    '<div class="estimate">Approx. ' + esc(money(converted,target)) +
+    ' · estimate only</div>';
+}
+
+async function loadRates() {
+  try {
+    const response = await fetch("https://open.er-api.com/v6/latest/USD");
+    if (!response.ok) throw new Error("Exchange-rate request failed");
+    const data = await response.json();
+    if (data.result !== "success" || !data.rates) throw new Error("No rates returned");
+    rates = data.rates;
+    rateDate = data.time_last_update_utc || "";
+    $("rateStatus").textContent = rateDate
+      ? "Exchange rates updated: " + rateDate + " · estimates only"
+      : "Exchange rates loaded · estimates only";
+  } catch (err) {
+    $("rateStatus").textContent = "Exchange rates unavailable; original prices still work.";
+  }
+  renderListings();
+  renderSwaps();
+  renderOffers();
+}
+
+function setPreview(inputId, previewId) {
+  $(inputId).addEventListener("change", () => {
+    const file = $(inputId).files[0];
+    const preview = $(previewId);
+    if (!file) {
+      preview.hidden = true;
+      preview.removeAttribute("src");
+      return;
+    }
+    if (!file.type.startsWith("image/")) {
+      alert("Please choose an image file.");
+      $(inputId).value = "";
+      return;
+    }
+    preview.src = URL.createObjectURL(file);
+    preview.hidden = false;
   });
- }
- $(cameraId).addEventListener("change",function(){changed(this.files[0])});
- $(galleryId).addEventListener("change",function(){changed(this.files[0])});
 }
-setupPhoto("photoCamera","photoGallery","listingPreview",function(data){currentPhoto=data});
-setupPhoto("sphotoCamera","sphotoGallery","swapPreview",function(data){currentSwapPhoto=data});
 
-$("login").onclick=function(){
- var email=$("email").value.trim(),pass=$("pass").value;
- if(!email||!pass){toast("Enter your email and password.");return}
- auth.signInWithEmailAndPassword(email,pass).catch(reportError);
-};
-$("signup").onclick=function(){
- var email=$("email").value.trim(),pass=$("pass").value;
- if(!email||pass.length<6){toast("Enter an email and a password of at least 6 characters.");return}
- auth.createUserWithEmailAndPassword(email,pass).catch(reportError);
-};
-$("logout").onclick=function(){auth.signOut().catch(reportError)};
+async function compressPhoto(file) {
+  if (!file || !file.type.startsWith("image/")) {
+    throw new Error("Choose a valid image.");
+  }
 
-auth.onAuthStateChanged(function(u){
- user=u;
- $("loggedOut").style.display=u?"none":"block";
- $("loggedIn").style.display=u?"block":"none";
- $("who").textContent=u?u.email:"";
- $("pass").value="";
- renderFeed();renderSwaps();startOfferListener();
+  const objectURL = URL.createObjectURL(file);
+  try {
+    const image = new Image();
+    image.src = objectURL;
+    await new Promise((resolve,reject) => {
+      image.onload = resolve;
+      image.onerror = () => reject(new Error("Could not read this image."));
+    });
+
+    const canvas = document.createElement("canvas");
+    let width = image.naturalWidth;
+    let height = image.naturalHeight;
+    const maxSide = 640;
+    if (width > maxSide || height > maxSide) {
+      const scale = maxSide / Math.max(width,height);
+      width = Math.round(width * scale);
+      height = Math.round(height * scale);
+    }
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(image,0,0,width,height);
+
+    let result = canvas.toDataURL("image/jpeg",0.55);
+    if (result.length > 540000) result = canvas.toDataURL("image/jpeg",0.38);
+    if (result.length > 590000) {
+      throw new Error("This photo is still too large. Please choose a smaller image.");
+    }
+    return result;
+  } finally {
+    URL.revokeObjectURL(objectURL);
+  }
+}
+
+function validateCurrency(currency) {
+  return CURRENCIES.includes(currency);
+}
+
+async function refreshData() {
+  try {
+    const [listingSnap,swapSnap] = await Promise.all([
+      db.collection("listings").orderBy("createdAt","desc").limit(60).get(),
+      db.collection("swaps").orderBy("createdAt","desc").limit(60).get()
+    ]);
+    listings = listingSnap.docs.map(d => ({id:d.id,...d.data()}));
+    swaps = swapSnap.docs.map(d => ({id:d.id,...d.data()}));
+    renderListings();
+    renderSwaps();
+  } catch (err) {
+    $("listingFeed").innerHTML =
+      '<div class="empty">Could not load listings. Check your internet connection and Firestore rules.</div>';
+    $("swapFeed").innerHTML =
+      '<div class="empty">Could not load swaps. Check your internet connection and Firestore rules.</div>';
+    console.error(err);
+  }
+}
+
+function renderListings() {
+  const feed = $("listingFeed");
+  if (!feed) return;
+  const query = ($("searchBox")?.value || "").trim().toLowerCase();
+  const filtered = listings.filter(item =>
+    [item.name,item.size,item.country].some(value =>
+      String(value || "").toLowerCase().includes(query)
+    )
+  );
+  if (!filtered.length) {
+    feed.innerHTML = '<div class="empty">No matching jerseys yet. Be the first to list one.</div>';
+    return;
+  }
+
+  feed.innerHTML = filtered.map(item => {
+    const photo = typeof item.photo === "string" && item.photo.startsWith("data:image/")
+      ? item.photo : "";
+    const contact = String(item.sellerPhone || "").replace(/\D/g,"");
+    const wa = contact
+      ? '<a href="https://wa.me/' + esc(contact) +
+        '" target="_blank" rel="noopener noreferrer"><button class="secondary">Contact seller</button></a>'
+      : "";
+    const mine = currentUser && item.ownerId === currentUser.uid;
+    return '<article class="card">' +
+      (photo ? '<img src="' + photo + '" alt="Jersey photo" loading="lazy">' :
+        '<div class="empty">No photo</div>') +
+      '<div class="cardbody"><h3>' + esc(item.name) + '</h3>' +
+      priceHTML(item.price,item.currency || "NGN") +
+      '<div class="meta">Size: ' + esc(item.size || "Not specified") +
+      ' · ' + esc(item.country || "Country not provided") + '</div>' +
+      '<div class="actions">' + wa +
+      (mine ? '<button class="danger" onclick="deleteListing(\'' + item.id + '\')">Delete my listing</button>' :
+        '<button class="secondary" onclick="addWardrobe(\'' + encodeURIComponent(item.name) + '\',\'' + encodeURIComponent(item.size || "") + '\')">Save to wardrobe</button>') +
+      '</div></div></article>';
+  }).join("");
+}
+
+function renderSwaps() {
+  const feed = $("swapFeed");
+  if (!feed) return;
+  if (!swaps.length) {
+    feed.innerHTML = '<div class="empty">No swaps yet. Post a jersey to get started.</div>';
+    return;
+  }
+
+  feed.innerHTML = swaps.map(item => {
+    const photo = typeof item.photo === "string" && item.photo.startsWith("data:image/")
+      ? item.photo : "";
+    const mine = currentUser && item.ownerId === currentUser.uid;
+    const status = item.status || "open";
+    return '<article class="card">' +
+      (photo ? '<img src="' + photo + '" alt="Swap jersey photo" loading="lazy">' :
+        '<div class="empty">No photo</div>') +
+      '<div class="cardbody"><h3>' + esc(item.name) + '</h3>' +
+      priceHTML(item.value,item.currency || "NGN") +
+      '<div class="meta">Size: ' + esc(item.size || "Not specified") +
+      ' · ' + esc(item.country || "Country not provided") + '</div>' +
+      '<p class="muted">Wants: ' + esc(item.want) + '</p>' +
+      '<div class="meta">Status: ' + esc(status) + '</div>' +
+      '<div class="actions">' +
+      (status === "open" && !mine ?
+        '<button class="primary" onclick="makeOffer(\'' + item.id + '\')">Make an offer</button>' : '') +
+      (mine ? '<button class="danger" onclick="deleteSwap(\'' + item.id + '\')">Delete my swap</button>' : '') +
+      '</div></div></article>';
+  }).join("");
+}
+
+$("sellForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!requireLogin()) return;
+  const btn = $("sellForm").querySelector('button[type="submit"]');
+  btn.disabled = true;
+  message("sellMessage","Preparing your listing…");
+  try {
+    const name = $("listingName").value.trim();
+    const size = $("listingSize").value;
+    const price = Number($("listingPrice").value);
+    const currency = $("listingCurrency").value;
+    const country = $("listingCountry").value.trim();
+    const sellerPhone = $("listingPhone").value.trim();
+    const file = $("listingPhoto").files[0];
+
+    if (!name || name.length > 90 || !Number.isFinite(price) || price < 0) {
+      throw new Error("Check the jersey name and price.");
+    }
+    if (!validateCurrency(currency)) throw new Error("Choose a supported currency.");
+    if (!country) throw new Error("Enter your country.");
+    const photo = await compressPhoto(file);
+
+    await db.collection("listings").add({
+      name,size,price,currency,country,sellerPhone,photo,
+      ownerId:currentUser.uid,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    $("sellForm").reset();
+    $("listingPreview").hidden = true;
+    message("sellMessage","Your jersey has been published.");
+    await refreshData();
+    showTab("home",document.querySelector('[data-tab="home"]'));
+  } catch (err) {
+    message("sellMessage",err.message || "Could not publish listing.",true);
+  } finally {
+    btn.disabled = false;
+  }
 });
 
-db.collection("listings").orderBy("createdAt","desc").limit(50).onSnapshot(
- function(s){feedSnap=s;renderFeed()},
- function(e){$("homeMsg").textContent="Could not load listings. Check Firestore rules."}
-);
-db.collection("swaps").orderBy("createdAt","desc").limit(50).onSnapshot(
- function(s){swapSnap=s;renderSwaps()},
- function(e){$("swapMsg").textContent="Could not load swaps. Check Firestore rules."}
-);
+$("swapForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!requireLogin()) return;
+  const btn = $("swapForm").querySelector('button[type="submit"]');
+  btn.disabled = true;
+  message("swapMessage","Preparing your swap…");
+  try {
+    const name = $("swapName").value.trim();
+    const size = $("swapSize").value;
+    const value = Number($("swapValue").value);
+    const currency = $("swapCurrency").value;
+    const want = $("swapWant").value.trim();
+    const country = $("swapCountry").value.trim();
+    const file = $("swapPhoto").files[0];
 
-function renderFeed(){
- if(!feedSnap)return;
- var feed=$("feed"),msg=$("homeMsg"),query=$("search").value.trim().toLowerCase();
- feed.innerHTML="";
- var visible=0,mineCount=0;
- feedSnap.forEach(function(doc){
-  var x=doc.data();
-  if(user&&x.ownerId===user.uid)mineCount++;
-  if(query&&!(x.name||"").toLowerCase().includes(query)&&!(x.size||"").toLowerCase().includes(query))return;
-  visible++;
-  var card=node("article","card product");
-  if(x.photo){
-   var img=node("img");img.src=x.photo;img.alt=x.name||"Jersey";
-   img.onclick=function(){viewPhoto(x.photo)};
-   card.appendChild(img);
-  }else{
-   card.appendChild(node("div","empty","👕 Jersey photo unavailable"));
+    if (!name || name.length > 90 || !want || want.length > 150 ||
+        !Number.isFinite(value) || value <= 0) {
+      throw new Error("Check the jersey name, requested jersey and value.");
+    }
+    if (!validateCurrency(currency)) throw new Error("Choose a supported currency.");
+    if (!country) throw new Error("Enter your country.");
+    const photo = await compressPhoto(file);
+
+    await db.collection("swaps").add({
+      name,size,value,currency,want,country,photo,
+      ownerId:currentUser.uid,
+      status:"open",
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    $("swapForm").reset();
+    $("swapPreview").hidden = true;
+    message("swapMessage","Your swap has been posted.");
+    await refreshData();
+  } catch (err) {
+    message("swapMessage",err.message || "Could not post swap.",true);
+  } finally {
+    btn.disabled = false;
   }
-  var info=node("div","product-info");
-  info.appendChild(node("div","product-title",x.name||"Jersey"));
-  info.appendChild(node("p","muted","Size: "+(x.size||"Not specified")));
-  info.appendChild(node("div","price",money(x.price)));
-  var fav=node("button","btn btn-light",favorites.includes(doc.id)?"♥ Saved":"♡ Favorite");
-  fav.onclick=function(){
-   if(favorites.includes(doc.id))favorites=favorites.filter(function(id){return id!==doc.id});
-   else favorites.push(doc.id);
-   save("jersify_favorites",favorites);
-   fav.textContent=favorites.includes(doc.id)?"♥ Saved":"♡ Favorite";
-   renderFavorites();
-  };
-  info.appendChild(fav);
-  if(user&&x.ownerId===user.uid){
-   info.appendChild(node("span","status open","YOUR LISTING"));
-   var del=node("button","btn btn-danger btn-small","REMOVE LISTING");
-   del.onclick=function(){
-    if(confirm("Remove this listing?"))db.collection("listings").doc(doc.id).delete().catch(reportError);
-   };
-   info.appendChild(del);
-  }else{
-   var contact=node("button","btn","CONTACT SELLER");
-   contact.onclick=function(){
-    var phone=x.phone||sellerPhones[x.ownerId]||"";
-    if(!phone){toast("Seller has not added a WhatsApp number.");return}
-    window.open("https://wa.me/"+phone.replace(/\D/g,"")+"?text="+encodeURIComponent("Hello, I'm interested in your JERSIFY listing: "+x.name)," _blank");
-   };
-   info.appendChild(contact);
+});
+
+async function makeOffer(swapId) {
+  if (!requireLogin()) return;
+  const swap = swaps.find(item => item.id === swapId);
+  if (!swap || swap.status !== "open") {
+    alert("This swap is no longer available.");
+    return;
   }
-  card.appendChild(info);feed.appendChild(card);
- });
- $("s-listed").textContent=mineCount;
- msg.style.display=visible?"none":"block";
- msg.textContent=query?"No matching jerseys found.":"No jerseys listed yet. Be the first to sell!";
-}
-
-$("add").onclick=function(){
- if(needLogin())return;
- var name=$("name").value.trim(),size=$("size").value;
- var price=Number($("price").value),phone=$("sellerPhone").value.trim(),btn=$("add");
- if(!name||!size||!(price>0)){toast("Enter the jersey name, size, and a price above zero.");return}
- if(phone&&!/^\+?\d{10,15}$/.test(phone.replace(/[\s()-]/g,""))){toast("Enter a valid phone number with country code.");return}
- btn.disabled=true;btn.textContent="PUBLISHING...";
- var photo=currentPhoto;
- db.collection("listings").add({
-  name:name,size:size,price:price,photo:photo,phone:phone,
-  ownerId:user.uid,createdAt:firebase.firestore.FieldValue.serverTimestamp()
- }).then(function(){
-  ["name","price","sellerPhone","photoCamera","photoGallery"].forEach(function(id){$(id).value=""});
-  currentPhoto="";$("listingPreview").hidden=true;
-  toast("Your jersey listing was published!");
-  go("home");
- }).catch(reportError).finally(function(){btn.disabled=false;btn.textContent="PUBLISH LISTING ↗"});
-};
-
-$("check").onclick=function(){
- var a=Number($("mine").value),b=Number($("theirs").value),box=$("result");
- if(!(a>0&&b>0)){toast("Enter both values above zero.");return}
- var diff=Math.abs(a-b),pct=Math.round(diff/Math.max(a,b)*100);
- box.className="result "+(pct<=15?"fair":"unfair");
- box.textContent=pct<=15?"✓ Fair trade estimate: values are "+pct+"% apart.":"Values differ by "+pct+"%. The lower-value side would need about "+money(diff)+" extra value to match.";
-};
-
-function renderSwaps(){
- if(!swapSnap)return;
- var list=$("slist"),msg=$("swapMsg"),count=0,visible=0;
- list.innerHTML="";
- swapSnap.forEach(function(doc){
-  var s=doc.data(),mine=user&&s.ownerId===user.uid;
-  if(mine)count++;
-  visible++;
-  var card=node("div","card"),head=node("div","swaphead");
-  head.appendChild(node("h3","",s.name||"Jersey swap"));
-  head.appendChild(node("span","status "+(s.status==="swapped"?"swapped":s.status==="offer-pending"?"pending":"open"),s.status==="swapped"?"Swapped":s.status==="offer-pending"?"Offer pending":"Open"));
-  card.appendChild(head);
-  if(s.photo){
-   var im=node("img");im.src=s.photo;im.alt=s.name||"Swap jersey";
-   im.style.width="100%";im.style.borderRadius="12px";im.style.maxHeight="300px";im.style.objectFit="contain";
-   im.onclick=function(){viewPhoto(s.photo)};card.appendChild(im);
+  if (swap.ownerId === currentUser.uid) {
+    alert("You cannot make an offer on your own swap.");
+    return;
   }
-  card.appendChild(node("p","muted","Wants: "+(s.want||"Open to offers")));
-  card.appendChild(node("p","muted","Size: "+(s.size||"Not specified")));
-  card.appendChild(node("div","price",money(s.value)));
-  if(mine){
-   card.appendChild(node("span","status open","YOUR SWAP"));
-   var remove=node("button","btn btn-danger btn-small","REMOVE");
-   remove.onclick=function(){if(confirm("Remove this swap?"))db.collection("swaps").doc(doc.id).delete().catch(reportError)};
-   card.appendChild(remove);
-  }else if(user&&s.status!=="swapped"){
-   var offer=node("button","btn","OFFER A SWAP");
-   offer.onclick=function(){makeOffer(doc.id,s)};
-   card.appendChild(offer);
-   if(s.phone){
-    var contact=node("button","btn btn-light","CONTACT ON WHATSAPP");
-    contact.onclick=function(){window.open("https://wa.me/"+s.phone.replace(/\D/g,"")+"?text="+encodeURIComponent("Hello, I'm interested in your JERSIFY swap: "+s.name),"_blank")};
-    card.appendChild(contact);
-   }
-  }else if(!user){
-   var login=node("button","btn btn-light","LOG IN TO OFFER");
-   login.onclick=function(){go("profile")};card.appendChild(login);
+
+  const jerseyName = prompt("What jersey are you offering?");
+  if (!jerseyName || !jerseyName.trim()) return;
+  const rawValue = prompt("What is its estimated value in your currency?");
+  if (rawValue === null) return;
+  const jerseyValue = Number(rawValue);
+  if (!Number.isFinite(jerseyValue) || jerseyValue <= 0) {
+    alert("Enter a valid value greater than zero.");
+    return;
   }
-  list.appendChild(card);
- });
- $("s-swaps").textContent=count;
- msg.style.display=visible?"none":"block";
- msg.textContent="No swaps yet. Be the first to post one.";
-}
-
-$("sadd").onclick=function(){
- if(needLogin())return;
- var name=$("sname").value.trim(),value=Number($("svalue").value);
- var want=$("swant").value.trim(),size=$("ssize").value;
- var phone=$("sphone").value.trim(),btn=$("sadd");
- if(!name||!(value>0)||!want){toast("Enter the jersey name, value, and what you want in return.");return}
- if(phone&&!/^\+?\d{10,15}$/.test(phone.replace(/[\s()-]/g,""))){toast("Enter a valid phone number with country code.");return}
- btn.disabled=true;btn.textContent="POSTING...";
- db.collection("swaps").add({
-  name:name,value:value,want:want,size:size,photo:currentSwapPhoto,
-  phone:phone,ownerId:user.uid,status:"open",
-  createdAt:firebase.firestore.FieldValue.serverTimestamp()
- }).then(function(){
-  ["sname","svalue","swant","sphone","sphotoCamera","sphotoGallery"].forEach(function(id){$(id).value=""});
-  currentSwapPhoto="";$("swapPreview").hidden=true;
-  toast("Your swap was posted!");
- }).catch(reportError).finally(function(){btn.disabled=false;btn.textContent="POST MY SWAP ↗"});
-};
-
-function makeOffer(swapId,s){
- if(needLogin())return;
- if(s.ownerId===user.uid){toast("You cannot offer on your own swap.");return}
- var choices=wardrobe.filter(function(w){return w.name});
- if(!choices.length){toast("Add a jersey to your Wardrobe first.");go("wardrobe");return}
- var answer=prompt("Choose a jersey from your Wardrobe by number:\n"+choices.map(function(w,i){return(i+1)+". "+w.name+" — "+money(w.value)}).join("\n"),"1");
- if(answer===null)return;
- var index=Number(answer)-1;
- if(!Number.isInteger(index)||index<0||index>=choices.length){toast("Invalid selection.");return}
- var item=choices[index];
- db.collection("offers").add({
-  swapId:swapId,swapOwnerId:s.ownerId,swapName:s.name,
-  offeredBy:user.uid,jerseyName:item.name,jerseyValue:Number(item.value)||0,
-  requestedValue:Number(s.value)||0,
-  valueDifference:Math.abs((Number(item.value)||0)-(Number(s.value)||0)),
-  status:"pending",createdAt:firebase.firestore.FieldValue.serverTimestamp()
- }).then(function(){toast("Swap offer sent!")}).catch(reportError);
-}
-
-function startOfferListener(){
- if(offerUnsub){offerUnsub();offerUnsub=null}
- if(!user){$("inboxMsg").textContent="Sign in to view incoming offers.";renderInbox();return}
- offerUnsub=db.collection("offers").where("swapOwnerId","==",user.uid).onSnapshot(
-  function(s){renderInbox(s)},
-  function(e){$("inboxMsg").textContent="Offers could not load. Check Firestore rules."}
- );
-}
-
-function renderInbox(snap){
- var box=$("inbox"),msg=$("inboxMsg");box.innerHTML="";
- if(!user||!snap){msg.style.display="block";msg.textContent="Sign in to view offers.";return}
- msg.style.display=snap.empty?"block":"none";msg.textContent="No incoming offers yet.";
- snap.forEach(function(doc){
-  var o=doc.data(),card=node("div","card"),head=node("div","swaphead");
-  head.appendChild(node("b","",o.swapName||"Swap offer"));
-  head.appendChild(node("span","status "+(o.status==="accepted"?"swapped":"pending"),o.status||"pending"));
-  card.appendChild(head);
-  card.appendChild(node("p","","Offered jersey: "+(o.jerseyName||"Jersey")));
-  card.appendChild(node("p","","Offer value: "+money(o.jerseyValue)));
-  card.appendChild(node("p","muted","Value difference: "+money(o.valueDifference)));
-  if(o.status==="pending"){
-   var actions=node("div","formgrid");
-   var accept=node("button","btn btn-green","ACCEPT");
-   var decline=node("button","btn btn-danger","DECLINE");
-   accept.onclick=function(){decideOffer(doc.id,o,"accepted")};
-   decline.onclick=function(){decideOffer(doc.id,o,"declined")};
-   actions.appendChild(accept);actions.appendChild(decline);card.appendChild(actions);
+  const jerseyCurrency = (prompt(
+    "Enter your jersey currency: " + CURRENCIES.join(", "),
+    getDisplayCurrency()
+  ) || "").trim().toUpperCase();
+  if (!validateCurrency(jerseyCurrency)) {
+    alert("That currency is not supported.");
+    return;
   }
-  box.appendChild(card);
- });
+
+  try {
+    await db.collection("offers").add({
+      swapId:swap.id,
+      swapOwnerId:swap.ownerId,
+      swapName:swap.name,
+      offeredBy:currentUser.uid,
+      jerseyName:jerseyName.trim().slice(0,90),
+      jerseyValue,
+      jerseyCurrency,
+      requestedValue:Number(swap.value),
+      requestedCurrency:swap.currency || "NGN",
+      status:"pending",
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+    alert("Offer sent. The swap owner can now review it in Account → Offers on your swaps.");
+    await renderOffers();
+  } catch (err) {
+    console.error(err);
+    alert("The offer could not be sent. Check your connection and Firestore rules.");
+  }
 }
 
-function decideOffer(id,o,status){
- if(!user||o.swapOwnerId!==user.uid){toast("Only the swap owner can decide.");return}
- var batch=db.batch();
- batch.update(db.collection("offers").doc(id),{
-  status:status,decidedAt:firebase.firestore.FieldValue.serverTimestamp()
- });
- if(status==="accepted"){
-  batch.update(db.collection("swaps").doc(o.swapId),{status:"swapped",acceptedOfferId:id});
- }
- batch.commit().then(function(){toast(status==="accepted"?"Offer accepted.":"Offer declined.")}).catch(reportError);
+async function deleteListing(id) {
+  if (!requireLogin() || !confirm("Delete your listing?")) return;
+  try {
+    await db.collection("listings").doc(id).delete();
+    await refreshData();
+  } catch (err) {
+    alert("Could not delete listing. " + err.message);
+  }
 }
 
-function renderFavorites(){
- var box=$("favlist");if(!box)return;
- box.innerHTML="";
- var found=0;
- if(feedSnap){
-  feedSnap.forEach(function(doc){
-   if(!favorites.includes(doc.id))return;
-   found++;
-   var x=doc.data(),card=node("div","card");
-   card.appendChild(node("b","",x.name||"Jersey"));
-   card.appendChild(node("div","price",money(x.price)));
-   var remove=node("button","btn btn-light","REMOVE FAVORITE");
-   remove.onclick=function(){
-    favorites=favorites.filter(function(id){return id!==doc.id});
-    save("jersify_favorites",favorites);renderFavorites();renderFeed();
-   };
-   card.appendChild(remove);box.appendChild(card);
+async function deleteSwap(id) {
+  if (!requireLogin() || !confirm("Delete your swap?")) return;
+  try {
+    await db.collection("swaps").doc(id).delete();
+    await refreshData();
+  } catch (err) {
+    alert("Could not delete swap. " + err.message);
+  }
+}
+
+async function renderOffers() {
+  if (!currentUser) {
+    $("incomingOffers").innerHTML = '<div class="empty">Sign in to see offers.</div>';
+    $("outgoingOffers").innerHTML = '<div class="empty">Sign in to see offers.</div>';
+    return;
+  }
+
+  try {
+    const [incomingSnap,outgoingSnap] = await Promise.all([
+      db.collection("offers").where("swapOwnerId","==",currentUser.uid).get(),
+      db.collection("offers").where("offeredBy","==",currentUser.uid).get()
+    ]);
+    const incoming = incomingSnap.docs.map(d => ({id:d.id,...d.data()}));
+    const outgoing = outgoingSnap.docs.map(d => ({id:d.id,...d.data()}));
+
+    $("incomingOffers").innerHTML = incoming.length ? incoming.map(o => {
+      const estimate = convert(o.jerseyValue,o.jerseyCurrency,o.requestedCurrency);
+      const diff = estimate === null ? "" :
+        '<div class="estimate">Approx. value difference: ' +
+        esc(money(estimate-Number(o.requestedValue),o.requestedCurrency)) +
+        ' (estimate only)</div>';
+      return '<div class="offer"><strong>' + esc(o.jerseyName) + '</strong>' +
+        '<div class="meta">Offer on: ' + esc(o.swapName) + '</div>' +
+        priceHTML(o.jerseyValue,o.jerseyCurrency) + diff +
+        '<div class="meta">Status: ' + esc(o.status) + '</div>' +
+        (o.status === "pending" ?
+          '<div class="actions"><button class="primary" onclick="decideOffer(\'' + o.id + '\',true)">Accept offer</button>' +
+          '<button class="secondary" onclick="decideOffer(\'' + o.id + '\',false)">Decline</button></div>' : '') +
+        '</div>';
+    }).join("") : '<div class="empty">No offers on your swaps yet.</div>';
+
+    $("outgoingOffers").innerHTML = outgoing.length ? outgoing.map(o =>
+      '<div class="offer"><strong>' + esc(o.jerseyName) + '</strong>' +
+      '<div class="meta">Offer sent for: ' + esc(o.swapName) + '</div>' +
+      priceHTML(o.jerseyValue,o.jerseyCurrency) +
+      '<div class="meta">Status: ' + esc(o.status) + '</div></div>'
+    ).join("") : '<div class="empty">You have not made any offers yet.</div>';
+  } catch (err) {
+    console.error(err);
+    $("incomingOffers").innerHTML = '<div class="empty">Could not load offers. Check Firestore rules.</div>';
+    $("outgoingOffers").innerHTML = '<div class="empty">Could not load offers. Check Firestore rules.</div>';
+  }
+}
+
+async function decideOffer(offerId, accept) {
+  if (!requireLogin()) return;
+  const confirmText = accept
+    ? "Accept this offer? Your swap will be marked as swapped."
+    : "Decline this offer?";
+  if (!confirm(confirmText)) return;
+
+  try {
+    const offerRef = db.collection("offers").doc(offerId);
+    const offerSnap = await offerRef.get();
+    if (!offerSnap.exists) throw new Error("Offer not found.");
+    const offer = offerSnap.data();
+
+    if (offer.swapOwnerId !== currentUser.uid || offer.status !== "pending") {
+      throw new Error("This offer is no longer available to decide.");
+    }
+
+    const batch = db.batch();
+    batch.update(offerRef,{
+      status:accept ? "accepted" : "declined",
+      decidedAt:firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    if (accept) {
+      const swapRef = db.collection("swaps").doc(offer.swapId);
+      batch.update(swapRef,{
+        status:"swapped",
+        acceptedOfferId:offerId
+      });
+    }
+
+    await batch.commit();
+    alert(accept ? "Offer accepted." : "Offer declined.");
+    await refreshData();
+    await renderOffers();
+  } catch (err) {
+    console.error(err);
+    alert("Could not update this offer. " + (err.message || ""));
+  }
+}
+
+$("signupForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  message("authMessage","");
+  try {
+    await auth.createUserWithEmailAndPassword(
+      $("signupEmail").value.trim(),
+      $("signupPassword").value
+    );
+    message("authMessage","Account created successfully.");
+  } catch (err) {
+    message("authMessage",err.message || "Could not create account.",true);
+  }
+});
+
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  message("authMessage","");
+  try {
+    await auth.signInWithEmailAndPassword(
+      $("loginEmail").value.trim(),
+      $("loginPassword").value
+    );
+    message("authMessage","Signed in successfully.");
+  } catch (err) {
+    message("authMessage",err.message || "Could not sign in.",true);
+  }
+});
+
+async function logout() {
+  try {
+    await auth.signOut();
+  } catch (err) {
+    alert("Could not sign out. " + err.message);
+  }
+}
+
+function renderWardrobe() {
+  const items = JSON.parse(localStorage.getItem("jersifyWardrobe") || "[]");
+  $("wardrobeList").innerHTML = items.length ? items.map((item,index) =>
+    '<div class="offer"><strong>' + esc(item.name) + '</strong>' +
+    '<div class="meta">Size: ' + esc(item.size || "Not specified") + '</div>' +
+    '<button class="danger" onclick="removeWardrobe(' + index + ')">Remove</button></div>'
+  ).join("") : '<div class="empty">Your wardrobe is empty.</div>';
+}
+
+function addWardrobe(encodedName,encodedSize) {
+  const items = JSON.parse(localStorage.getItem("jersifyWardrobe") || "[]");
+  items.push({
+    name:decodeURIComponent(encodedName),
+    size:decodeURIComponent(encodedSize)
   });
- }
- if(!found)box.appendChild(node("div","empty","No saved favorites yet. Browse jerseys and tap Favorite."));
+  localStorage.setItem("jersifyWardrobe",JSON.stringify(items));
+  alert("Added to your wardrobe on this device.");
 }
 
-function renderWardrobe(){
- var list=$("wlist"),total=0;list.innerHTML="";
- wardrobe.forEach(function(w,i){
-  total+=Number(w.value)||0;
-  var card=node("div","card"),head=node("div","swaphead");
-  head.appendChild(node("b","",w.name));head.appendChild(node("span","status",w.size||"No size"));
-  card.appendChild(head);card.appendChild(node("div","price",money(w.value)));
-  var remove=node("button","btn btn-danger btn-small","REMOVE");
-  remove.onclick=function(){wardrobe.splice(i,1);save("jersify_wardrobe",wardrobe);renderWardrobe()};
-  card.appendChild(remove);list.appendChild(card);
- });
- if(!wardrobe.length)list.appendChild(node("div","empty","Your wardrobe is empty."));
- $("total").textContent=money(total);
- $("s-ward").textContent=wardrobe.length;
- $("s-value").textContent=money(total);
+function removeWardrobe(index) {
+  const items = JSON.parse(localStorage.getItem("jersifyWardrobe") || "[]");
+  items.splice(index,1);
+  localStorage.setItem("jersifyWardrobe",JSON.stringify(items));
+  renderWardrobe();
 }
-$("wadd").onclick=function(){
- var name=$("wname").value.trim(),value=Number($("wvalue").value)||0,size=$("wsize").value;
- if(!name){toast("Enter a jersey name.");return}
- if(value<0){toast("Value cannot be negative.");return}
- wardrobe.push({name:name,value:value,size:size});
- save("jersify_wardrobe",wardrobe);renderWardrobe();
- $("wname").value="";$("wvalue").value="";$("wsize").value="";
- toast("Added to your wardrobe.");
-};
-$("clear").onclick=function(){
- if(confirm("Delete all wardrobe items saved on this device? This does not delete online listings or swaps.")){
-  wardrobe=[];save("jersify_wardrobe",wardrobe);renderWardrobe();
- }
-};
+
+$("wardrobeForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const items = JSON.parse(localStorage.getItem("jersifyWardrobe") || "[]");
+  items.push({
+    name:$("wardrobeName").value.trim(),
+    size:$("wardrobeSize").value.trim()
+  });
+  localStorage.setItem("jersifyWardrobe",JSON.stringify(items));
+  $("wardrobeForm").reset();
+  renderWardrobe();
+});
+
+setPreview("listingPhoto","listingPreview");
+setPreview("swapPhoto","swapPreview");
+$("displayCurrency").value = getDisplayCurrency();
+
+auth.onAuthStateChanged(async user => {
+  currentUser = user;
+  $("authStatus").textContent = user
+    ? "Signed in as " + user.email
+    : "You're browsing as a guest. Sign in to sell, swap or make offers.";
+  $("authForms").hidden = !!user;
+  $("accountActions").hidden = !user;
+  renderListings();
+  renderSwaps();
+  await renderOffers();
+});
+
+loadRates();
+refreshData();
 renderWardrobe();
 </script>
 </body>
