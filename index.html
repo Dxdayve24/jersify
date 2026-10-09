@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JERSIFY</title>
+  <style>
+    :root { --accent: #c1121f; --dark: #0d0d0d; --green: #00e676; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: linear-gradient(180deg, #c1121f 0%, #7a0b13 100%);
+      background-attachment: fixed;
+      color: white;
+      padding-bottom: 80px;
+    }
+    header { padding: 18px 16px; background: var(--dark); border-bottom: 3px solid var(--green); position: sticky; top: 0; z-index: 5; }
+    header h1 { margin: 0; letter-spacing: 5px; font-size: 26px; }
+    header small { color: #aaa; letter-spacing: 1px; }
+    main { padding: 16px; }
+    h2 { margin: 6px 0 16px; font-size: 24px; }
+    h3 { margin: 22px 0 12px; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .card { background: white; color: #111; padding: 14px; border-radius: 16px; margin-bottom: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.35); }
+    .card img { width: 100%; border-radius: 12px; margin-bottom: 10px; display: block; }
+    .card b { font-size: 18px; }
+    .card p { margin: 6px 0 10px; color: #555; }
+    .price { color: var(--accent); font-weight: bold; font-size: 20px; }
+    .total { background: var(--dark); color: white; text-align: center; border: 2px solid var(--green); }
+    .total .price { color: var(--green); font-size: 32px; }
+    .badge { display: inline-block; background: var(--green); color: black; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+    input { display: block; width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 12px; border: none; font-size: 16px; background: white; color: black; }
+    .btn, #add, #wadd, #clear { width: 100%; padding: 16px; background: var(--dark); color: white; border: 2px solid var(--green); border-radius: 12px; font-size: 17px; font-weight: bold; letter-spacing: 1px; }
+    .btn:active, #add:active, #wadd:active { background: var(--green); color: black; }
+    #clear { border-color: #ff5252; margin-top: 8px; }
+    .del { background: none; border: 1px solid #999; color: #555; padding: 6px 12px; border-radius: 8px; margin-left: 10px; }
+    .result { text-align: center; font-weight: bold; font-size: 18px; display: none; }
+    .fair { background: var(--green); color: black; }
+    .unfair { background: #ffcdd2; color: #b71c1c; }
+    nav { position: fixed; bottom: 0; left: 0; right: 0; display: flex; background: var(--dark); border-top: 1px solid #333; }
+    nav button { flex: 1; padding: 18px 0; background: none; color: #999; border: none; font-size: 13px; border-top: 3px solid transparent; }
+    nav button.on { color: white; border-top: 3px solid var(--green); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>JERSIFY</h1>
+    <small>The next-generation jersey marketplace</small>
+  </header>
+
+  <main>
+    <section id="home" class="page active">
+      <h2>Home</h2>
+      <div class="card"><b>Barcelona 2009 Home</b><p>Size M</p><span class="price">$85</span></div>
+      <div class="card"><b>Lakers Kobe #8</b><p>Size L</p><span class="price">$120</span></div>
+    </section>
+
+    <section id="sell" class="page">
+      <h2>Sell</h2>
+      <input id="name" placeholder="Jersey name">
+      <input id="size" placeholder="Size">
+      <input id="price" placeholder="Price" type="number">
+      <input id="photo" type="file" accept="image/*">
+      <button id="add">LIST JERSEY</button>
+    </section>
+
+    <section id="swap" class="page">
+      <h2>Swap</h2>
+
+      <h3 style="margin-top:0">Fair trade checker</h3>
+      <input id="mine" placeholder="Value of your jersey ($)" type="number">
+      <input id="theirs" placeholder="Value of their jersey ($)" type="number">
+      <button class="btn" id="check">CHECK TRADE</button>
+      <div id="result" class="card result" style="margin-top:12px"></div>
+
+      <h3>Post a swap</h3>
+      <input id="sname" placeholder="Jersey you'll trade">
+      <input id="svalue" placeholder="Its value ($)" type="number">
+      <input id="swant" placeholder="What you want in return">
+      <button class="btn" id="sadd">POST SWAP</button>
+      <div id="slist" style="margin-top:16px"></div>
+    </section>
+
+    <section id="wardrobe" class="page">
+      <h2>Wardrobe</h2>
+      <div class="card total">Collection value<br><span class="price" id="total">$0</span></div>
+      <input id="wname" placeholder="Jersey name">
+      <input id="wvalue" placeholder="Estimated value" type="number">
+      <button id="wadd">ADD TO WARDROBE</button>
+      <div id="wlist" style="margin-top:16px"></div>
+    </section>
+
+    <section id="profile" class="page">
+      <h2>Profile</h2>
+      <div class="card"><b>Jerseys listed</b><br><span class="price" id="s-listed">0</span></div>
+      <div class="card"><b>Swaps posted</b><br><span class="price" id="s-swaps">0</span></div>
+      <div class="card"><b>Wardrobe items</b><br><span class="price" id="s-ward">0</span></div>
+      <div class="card"><b>Collection value</b><br><span class="price" id="s-value">$0</span></div>
+      <button id="clear">CLEAR ALL DATA</button>
+    </section>
+  </main>
+
+  <nav>
+    <button data-page="home" class="on">Home</button>
+    <button data-page="sell">Sell</button>
+    <button data-page="swap">Swap</button>
+    <button data-page="wardrobe">Wardrobe</button>
+    <button data-page="profile">Profile</button>
+  </nav>
+
+  <script>
+    var navButtons = document.querySelectorAll("nav button");
+    navButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".page").forEach(function (p) { p.classList.remove("active"); });
+        navButtons.forEach(function (b) { b.classList.remove("on"); });
+        document.getElementById(btn.dataset.page).classList.add("active");
+        btn.classList.add("on");
+        window.scrollTo(0, 0);
+      });
+    });
+
+    var listings = JSON.parse(localStorage.getItem("jersify") || "[]");
+    var wardrobe = JSON.parse(localStorage.getItem("jersify_wardrobe") || "[]");
+    var swaps = JSON.parse(localStorage.getItem("jersify_swaps") || "[]");
+
+    /* ---------- STATS ---------- */
+    function updateStats() {
+      var value = 0;
+      wardrobe.forEach(function (w) { value += Number(w.value) || 0; });
+      document.getElementById("s-listed").textContent = listings.length;
+      document.getElementById("s-swaps").textContent = swaps.length;
+      document.getElementById("s-ward").textContent = wardrobe.length;
+      document.getElementById("s-value").textContent = "$" + value;
+    }
+
+    /* ---------- MARKET LISTINGS ---------- */
+    function showListing(item) {
+      var card = document.createElement("div");
+      card.className = "card";
+      if (item.photo) {
+        var img = document.createElement("img");
+        img.src = item.photo;
+        card.appendChild(img);
+      }
+      var b = document.createElement("b");
+      b.textContent = item.name;
+      var p = document.createElement("p");
+      p.textContent = "Size " + item.size;
+      var price = document.createElement("span");
+      price.className = "price";
+      price.textContent = "$" + item.price;
+      card.appendChild(b);
+      card.appendChild(p);
+      card.appendChild(price);
+      if (item.score) {
+        var badge = document.createElement("span");
+        badge.className = "badge";
+        badge.style.marginLeft = "10px";
+        badge.textContent = "Authenticity " + item.score + "% (demo)";
+        card.appendChild(badge);
+      }
+      document.querySelector("#home h2").after(card);
+    }
+
+    function resizePhoto(file, done) {
+      var reader = new FileReader();
+      reader.onload = function () {
+        var img = new Image();
+        img.onload = function () {
+          var scale = Math.min(1, 600 / img.width);
+          var c = document.createElement("canvas");
+          c.width = img.width * scale;
+          c.height = img.height * scale;
+          c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+          done(c.toDataURL("image/jpeg", 0.7));
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    listings.forEach(showListing);
+
+    document.getElementById("add").addEventListener("click", function () {
+      var name = document.getElementById("name").value;
+      if (!name) return;
+      var size = document.getElementById("size").value;
+      var price = document.getElementById("price").value;
+      var file = document.getElementById("photo").files[0];
+
+      function save(photo) {
+        var item = { name: name, size: size, price: price, photo: photo, score: Math.floor(70 + Math.random() * 30) };
+        listings.push(item);
+        try {
+          localStorage.setItem("jersify", JSON.stringify(listings));
+        } catch (e) {
+          alert("Storage is full. Try a smaller photo.");
+        }
+        showListing(item);
+        updateStats();
+        document.getElementById("name").value = "";
+        document.getElementById("size").value = "";
+        document.getElementById("price").value = "";
+        document.getElementById("photo").value = "";
+        document.querySelector('nav button[data-page="home"]').click();
+      }
+
+      if (file) { resizePhoto(file, save); } else { save(""); }
+    });
+
+    /* ---------- SWAP ---------- */
+    document.getElementById("check").addEventListener("click", function () {
+      var mine = Number(document.getElementById("mine").value);
+      var theirs = Number(document.getElementById("theirs").value);
+      var box = document.getElementById("result");
+      if (!mine || !theirs) return;
+      var diff = Math.abs(mine - theirs);
+      var pct = Math.round((diff / Math.max(mine, theirs)) * 100);
+      box.style.display = "block";
+      if (pct <= 15) {
+        box.className = "card result fair";
+        box.textContent = "Fair trade! Only " + pct + "% apart.";
+      } else {
+        box.className = "card result unfair";
+        var who = mine < theirs ? "You" : "They";
+        box.textContent = "Not balanced (" + pct + "% apart). " + who + " should add about $" + diff + ".";
+      }
+    });
+
+    function saveSwaps() {
+      localStorage.setItem("jersify_swaps", JSON.stringify(swaps));
+    }
+
+    function renderSwaps() {
+      var list = document.getElementById("slist");
+      list.innerHTML = "";
+      swaps.forEach(function (s, i) {
+        var card = document.createElement("div");
+        card.className = "card";
+        var b = document.createElement("b");
+        b.textContent = s.name;
+        var p = document.createElement("p");
+        p.textContent = "Wants: " + (s.want || "open to offers");
+        var v = document.createElement("span");
+        v.className = "price";
+        v.textContent = "$" + (s.value || 0);
+        var del = document.createElement("button");
+        del.className = "del";
+        del.textContent = "Remove";
+        del.addEventListener("click", function () {
+          swaps.splice(i, 1);
+          saveSwaps();
+          renderSwaps();
+        });
+        card.appendChild(b);
+        card.appendChild(p);
+        card.appendChild(v);
+        card.appendChild(del);
+        list.appendChild(card);
+      });
+      updateStats();
+    }
+
+    document.getElementById("sadd").addEventListener("click", function () {
+      var name = document.getElementById("sname").value;
+      if (!name) return;
+      swaps.push({
+        name: name,
+        value: document.getElementById("svalue").value,
+        want: document.getElementById("swant").value
+      });
+      saveSwaps();
+      renderSwaps();
+      document.getElementById("sname").value = "";
+      document.getElementById("svalue").value = "";
+      document.getElementById("swant").value = "";
+    });
+
+    /* ---------- WARDROBE ---------- */
+    function saveWardrobe() {
+      localStorage.setItem("jersify_wardrobe", JSON.stringify(wardrobe));
+    }
+
+    function renderWardrobe() {
+      var list = document.getElementById("wlist");
+      list.innerHTML = "";
+      var total = 0;
+      wardrobe.forEach(function (w, i) {
+        total += Number(w.value) || 0;
+        var card = document.createElement("div");
+        card.className = "card";
+        var b = document.createElement("b");
+        b.textContent = w.name;
+        var p = document.createElement("p");
+        p.textContent = "Estimated value";
+        var v = document.createElement("span");
+        v.className = "price";
+        v.textContent = "$" + (w.value || 0);
+        var del = document.createElement("button");
+        del.className = "del";
+        del.textContent = "Remove";
+        del.addEventListener("click", function () {
+          wardrobe.splice(i, 1);
+          saveWardrobe();
+          renderWardrobe();
+        });
+        card.appendChild(b);
+        card.appendChild(p);
+        card.appendChild(v);
+        card.appendChild(del);
+        list.appendChild(card);
+      });
+      document.getElementById("total").textContent = "$" + total;
+      updateStats();
+    }
+
+    document.getElementById("wadd").addEventListener("click", function () {
+      var name = document.getElementById("wname").value;
+      if (!name) return;
+      wardrobe.push({ name: name, value: document.getElementById("wvalue").value });
+      saveWardrobe();
+      renderWardrobe();
+      document.getElementById("wname").value = "";
+      document.getElementById("wvalue").value = "";
+    });
+
+    /* ---------- CLEAR DATA ---------- */
+    document.getElementById("clear").addEventListener("click", function () {
+      if (confirm("Delete all your listings, swaps and wardrobe items?")) {
+        localStorage.removeItem("jersify");
+        localStorage.removeItem("jersify_wardrobe");
+        localStorage.removeItem("jersify_swaps");
+        location.reload();
+      }
+    });
+
+    renderWardrobe();
+    renderSwaps();
+    updateStats();
+  </script>
+</body>
+</html>
