@@ -8,13 +8,13 @@
 <style>
 :root{--red:#c1121f;--dark:#101012;--green:#00e676;--paper:#f5f5f7;--muted:#74747e}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial, sans-serif;background:var(--paper);color:#151519;padding-bottom:85px}
+body{margin:0;font-family:Arial,sans-serif;background:var(--paper);color:#151519;padding-bottom:85px}
 header{background:var(--dark);color:white;padding:18px;border-bottom:3px solid var(--green);position:sticky;top:0;z-index:10}
 header h1{margin:0;letter-spacing:5px;font-size:27px}
 header small{color:#aaa;letter-spacing:1px}
-main{max-width:760px;margin:auto;padding:18px 15px}
+main{max-width:850px;margin:auto;padding:18px 15px}
 .page{display:none}.page.active{display:block}
-h2{font-size:28px;margin:8px 0}
+h2{font-size:27px;margin:8px 0}
 h3{margin:22px 0 12px}
 .lead{color:#666;font-size:14px;line-height:1.6}
 .hero{background:linear-gradient(135deg,#17171b,#33333a);color:white;padding:24px;border-radius:22px;margin-bottom:22px}
@@ -23,35 +23,45 @@ h3{margin:22px 0 12px}
 .card{background:white;border-radius:18px;padding:16px;margin-bottom:15px;box-shadow:0 5px 18px #0000000c;overflow-wrap:anywhere}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .product{padding:0;overflow:hidden}
-.product img{width:100%;height:155px;object-fit:cover;background:#eee;display:block}
+.product img{width:100%;height:165px;object-fit:cover;background:#eee;display:block;cursor:pointer}
 .product-info{padding:12px}
 .product-title{font-weight:800;font-size:15px}
 .muted{color:var(--muted);font-size:12px}
 .price{color:var(--red);font-size:20px;font-weight:900;margin:8px 0}
 label{display:block;font-size:12px;font-weight:bold;margin:14px 0 7px}
-input,select{width:100%;padding:14px;border:1px solid #ddd;border-radius:12px;background:white;font-size:16px;color:#111}
-input:focus,select:focus{outline:2px solid #c1121f44;border-color:var(--red)}
+input,select,textarea{width:100%;padding:13px;border:1px solid #ddd;border-radius:12px;background:white;font-size:16px;color:#111}
+textarea{resize:vertical;min-height:75px}
+input:focus,select:focus,textarea:focus{outline:2px solid #c1121f44;border-color:var(--red)}
 input[type=file]{font-size:12px;padding:10px}
 .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.btn{width:100%;padding:15px;border-radius:12px;border:1px solid var(--green);background:var(--dark);color:white;font-size:14px;font-weight:900;letter-spacing:.5px;cursor:pointer;margin-top:12px}
-.btn-green{background:var(--green);color:#111;border-color:var(--green)}
+.btn{width:100%;padding:14px;border-radius:12px;border:1px solid var(--green);background:var(--dark);color:white;font-size:13px;font-weight:900;cursor:pointer;margin-top:10px}
+.btn:disabled{opacity:.5;cursor:wait}
+.btn-green{background:var(--green);color:#111}
 .btn-light{background:#eee;color:#222;border-color:#ddd}
 .btn-danger{background:#fff0f0;color:#a00;border-color:#ffd0d0}
 .btn-small{width:auto;padding:9px 12px;font-size:11px}
 .result{padding:15px;border-radius:12px;margin-top:12px;font-weight:bold;line-height:1.5}
-.fair{background:#dcffec;color:#075c32}.unfair{background:#fff0d8;color:#754500}
+.fair{background:#dcffec;color:#075c32}
+.unfair{background:#fff0d8;color:#754500}
 .status{font-size:10px;font-weight:bold;border-radius:20px;padding:6px 9px;background:#eee;white-space:nowrap}
-.open{background:#dcffec;color:#075c32}.pending{background:#fff0d8;color:#754500}.swapped{background:#dceaff;color:#174c92}
+.open{background:#dcffec;color:#075c32}
+.pending{background:#fff0d8;color:#754500}
+.swapped{background:#dceaff;color:#174c92}
 .swaphead{display:flex;justify-content:space-between;align-items:start;gap:10px}
 .empty{padding:24px 15px;text-align:center;border:1px dashed #ccc;border-radius:15px;color:#777;font-size:13px;line-height:1.5}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .stat{background:white;border-radius:15px;padding:15px}
 .stat span{display:block;font-size:11px;color:#777;margin-bottom:8px}
 .stat strong{font-size:24px}
+.preview{width:100%;max-height:260px;object-fit:contain;border-radius:12px;margin-top:10px;background:#eee}
 nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--dark);border-top:2px solid #333;z-index:20;padding-bottom:env(safe-area-inset-bottom)}
-nav button{flex:1;min-width:0;padding:13px 2px;background:none;color:#999;border:0;border-top:3px solid transparent;font-size:11px}
+nav button{flex:1;min-width:0;padding:12px 2px;background:none;color:#999;border:0;border-top:3px solid transparent;font-size:11px}
 nav button.on{color:white;border-top-color:var(--green)}
 nav span{display:block;font-size:17px;margin-bottom:4px}
+#toast{position:fixed;bottom:95px;left:15px;right:15px;background:#101012;color:white;padding:14px;border-radius:12px;display:none;z-index:50;text-align:center;font-size:13px}
+#photoViewer{display:none;position:fixed;inset:0;background:#000e;z-index:100;align-items:center;justify-content:center;padding:20px}
+#photoViewer img{max-width:100%;max-height:80vh;object-fit:contain}
+#photoViewer button{position:absolute;top:20px;right:20px;background:white;border:0;border-radius:50%;padding:12px}
 @media(min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:360px){.formgrid{grid-template-columns:1fr}.hero h2{font-size:25px}}
 </style>
@@ -68,9 +78,11 @@ nav span{display:block;font-size:17px;margin-bottom:4px}
 <div class="hero">
 <small style="color:#00e676;font-weight:bold">YOUR NEXT KIT IS HERE</small>
 <h2>Find it. Trade it. Wear it.</h2>
-<p>Discover jerseys, grow your collection, and trade with fellow football fans.</p>
+<p>Discover jerseys, grow your collection, and trade with football fans.</p>
 <button class="btn btn-green" onclick="go('sell')">+ LIST A JERSEY</button>
 </div>
+<label for="search">Search jerseys</label>
+<input id="search" placeholder="Search club, country or jersey..." oninput="renderFeed()">
 <h3>Fresh on the market</h3>
 <div id="homeMsg" class="empty">Loading jerseys...</div>
 <div id="feed" class="grid"></div>
@@ -78,46 +90,56 @@ nav span{display:block;font-size:17px;margin-bottom:4px}
 
 <section id="sell" class="page">
 <h2>List a jersey</h2>
-<p class="lead">Create a listing for your jersey.</p>
+<p class="lead">Take a new picture or choose one from your gallery.</p>
 <div class="card">
 <label for="name">Jersey name *</label>
 <input id="name" placeholder="e.g. Nigeria Home Jersey 2024" maxlength="90">
 <div class="formgrid">
 <div><label for="size">Size *</label>
 <select id="size"><option value="">Choose size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>XXXL</option><option>Kids</option><option>Other</option></select></div>
-<div><label for="price">Price (USD) *</label><input id="price" type="number" min="0" step=".01" placeholder="35"></div>
+<div><label for="price">Price (NGN) *</label><input id="price" type="number" min="1" step="1" placeholder="35000"></div>
 </div>
-<label for="photo">Jersey photo</label>
-<input id="photo" type="file" accept="image/*">
+<label for="sellerPhone">WhatsApp number (include country code)</label>
+<input id="sellerPhone" type="tel" placeholder="2348012345678">
+<label for="photoCamera">Take a photo with camera</label>
+<input id="photoCamera" type="file" accept="image/*" capture="environment">
+<label for="photoGallery">Or upload from gallery</label>
+<input id="photoGallery" type="file" accept="image/*">
+<img id="listingPreview" class="preview" hidden alt="Jersey preview">
 <button class="btn" id="add">PUBLISH LISTING ↗</button>
+<p class="muted">Sign in to publish. Only upload pictures you have permission to use.</p>
 </div>
 </section>
 
 <section id="swap" class="page">
 <h2>The Swap Room</h2>
-<p class="lead">Compare jersey values, post a swap, and receive offers.</p>
+<p class="lead">Compare jersey values and trade with other fans.</p>
 <div class="card">
 <h3 style="margin-top:0">Fair trade checker</h3>
 <div class="formgrid">
-<div><label for="mine">Your jersey ($)</label><input id="mine" type="number" min="0" placeholder="40"></div>
-<div><label for="theirs">Their jersey ($)</label><input id="theirs" type="number" min="0" placeholder="45"></div>
+<div><label for="mine">Your jersey (NGN)</label><input id="mine" type="number" min="1" placeholder="40000"></div>
+<div><label for="theirs">Their jersey (NGN)</label><input id="theirs" type="number" min="1" placeholder="45000"></div>
 </div>
 <button class="btn" id="check">CHECK FAIRNESS</button>
 <div id="result"></div>
 </div>
-
 <h3>Post a swap</h3>
 <div class="card">
 <label for="sname">Jersey you're offering *</label>
 <input id="sname" placeholder="e.g. Arsenal Away Jersey">
 <div class="formgrid">
-<div><label for="svalue">Estimated value ($) *</label><input id="svalue" type="number" min="0" placeholder="35"></div>
+<div><label for="svalue">Estimated value (NGN) *</label><input id="svalue" type="number" min="1" placeholder="35000"></div>
 <div><label for="ssize">Size</label><select id="ssize"><option value="">Choose size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>XXXL</option><option>Kids</option><option>Other</option></select></div>
 </div>
 <label for="swant">What do you want in return? *</label>
 <input id="swant" placeholder="e.g. Real Madrid home jersey">
-<label for="sphoto">Photo (optional)</label>
-<input id="sphoto" type="file" accept="image/*">
+<label for="sphone">WhatsApp number (include country code)</label>
+<input id="sphone" type="tel" placeholder="2348012345678">
+<label for="sphotoCamera">Take a swap photo</label>
+<input id="sphotoCamera" type="file" accept="image/*" capture="environment">
+<label for="sphotoGallery">Or choose from gallery</label>
+<input id="sphotoGallery" type="file" accept="image/*">
+<img id="swapPreview" class="preview" hidden alt="Swap photo preview">
 <button class="btn" id="sadd">POST MY SWAP ↗</button>
 </div>
 <h3>Community swaps</h3>
@@ -130,12 +152,12 @@ nav span{display:block;font-size:17px;margin-bottom:4px}
 <p class="lead">Keep track of your personal jersey collection on this device.</p>
 <div class="card" style="background:#101012;color:white">
 <span class="muted">COLLECTION VALUE</span>
-<div id="total" style="color:#00e676;font-size:30px;font-weight:900">$0.00</div>
+<div id="total" style="color:#00e676;font-size:30px;font-weight:900">₦0</div>
 </div>
 <div class="card">
 <label for="wname">Jersey name *</label><input id="wname" placeholder="Jersey name">
 <div class="formgrid">
-<div><label for="wvalue">Estimated value ($)</label><input id="wvalue" type="number" min="0" placeholder="40"></div>
+<div><label for="wvalue">Estimated value (NGN)</label><input id="wvalue" type="number" min="0" placeholder="40000"></div>
 <div><label for="wsize">Size</label><select id="wsize"><option value="">Choose size</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>XXXL</option><option>Kids</option><option>Other</option></select></div>
 </div>
 <button class="btn" id="wadd">+ ADD TO WARDROBE</button>
@@ -166,12 +188,14 @@ nav span{display:block;font-size:17px;margin-bottom:4px}
 <div class="stat"><span>MY LISTINGS</span><strong id="s-listed">0</strong></div>
 <div class="stat"><span>MY SWAPS</span><strong id="s-swaps">0</strong></div>
 <div class="stat"><span>WARDROBE ITEMS</span><strong id="s-ward">0</strong></div>
-<div class="stat"><span>COLLECTION VALUE</span><strong id="s-value">$0</strong></div>
+<div class="stat"><span>COLLECTION VALUE</span><strong id="s-value">₦0</strong></div>
 </div>
 <h3>Incoming swap offers</h3>
-<div id="inboxMsg" class="empty">Sign in to view your offers.</div>
+<div id="inboxMsg" class="empty">Sign in to view offers.</div>
 <div id="inbox"></div>
-<p class="muted">Before public launch, secure your Firestore database with appropriate security rules.</p>
+<h3>My favorites</h3>
+<div id="favlist"></div>
+<p class="muted">Before launch, configure Firebase security rules and image storage.</p>
 <button class="btn btn-danger" id="clear">CLEAR MY LOCAL WARDROBE</button>
 </section>
 </main>
@@ -184,11 +208,17 @@ nav span{display:block;font-size:17px;margin-bottom:4px}
 <button data-page="profile"><span>◉</span>Profile</button>
 </nav>
 
+<div id="toast"></div>
+<div id="photoViewer" onclick="closeViewer()">
+<button onclick="closeViewer()">✕</button>
+<img id="viewerImg" alt="Full jersey photo">
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-var firebaseConfig = {
+var firebaseConfig={
 apiKey:"AIzaSyAj6JfHidij2AVAWckWl42dUDGVX64ukKk",
 authDomain:"jersify-d6ab4.firebaseapp.com",
 projectId:"jersify-d6ab4",
@@ -198,23 +228,67 @@ appId:"1:282065025206:web:3ac27e10d6e1c834f38e17"
 };
 
 firebase.initializeApp(firebaseConfig);
-var db=firebase.firestore(),auth=firebase.auth(),user=null;
-var feedSnap=null,swapSnap=null,offerUnsub=null,wardrobe=loadWardrobe();
+var db=firebase.firestore();
+var auth=firebase.auth();
+var user=null,feedSnap=null,swapSnap=null,offerUnsub=null;
+var wardrobe=load("jersify_wardrobe",[]);
+var favorites=load("jersify_favorites",[]);
+var sellerPhones=load("jersify_phones",{});
+var currentPhoto="",currentSwapPhoto="";
 
 function $(id){return document.getElementById(id)}
-function money(v){return "$"+(Number(v)||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2})}
-function loadWardrobe(){try{return JSON.parse(localStorage.getItem("jersify_wardrobe")||"[]")}catch(e){return []}}
-function saveWardrobe(){localStorage.setItem("jersify_wardrobe",JSON.stringify(wardrobe))}
-function node(tag,cls,text){var n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n}
-function go(page){document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active")});document.querySelectorAll("nav button").forEach(function(b){b.classList.toggle("on",b.dataset.page===page)});$(page).classList.add("active");window.scrollTo(0,0);if(page==="profile")renderInbox()}
-function needLogin(){if(user)return false;alert("Please log in first from the Profile tab.");go("profile");return true}
-function reportError(e){alert(e.message||"Something went wrong.")}
-document.querySelectorAll("nav button").forEach(function(b){b.addEventListener("click",function(){go(b.dataset.page)})});
+function load(key,fallback){
+ try{return JSON.parse(localStorage.getItem(key))||fallback}catch(e){return fallback}
+}
+function save(key,value){localStorage.setItem(key,JSON.stringify(value))}
+function money(v){
+ return "₦"+(Number(v)||0).toLocaleString("en-NG",{maximumFractionDigits:0})
+}
+function toast(message){
+ var t=$("toast");t.textContent=message;t.style.display="block";
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(function(){t.style.display="none"},3000);
+}
+function node(tag,cls,text){
+ var n=document.createElement(tag);
+ if(cls)n.className=cls;
+ if(text!==undefined)n.textContent=text;
+ return n;
+}
+function go(page){
+ document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active")});
+ document.querySelectorAll("nav button").forEach(function(b){b.classList.toggle("on",b.dataset.page===page)});
+ $(page).classList.add("active");
+ window.scrollTo(0,0);
+ if(page==="profile"){renderInbox();renderFavorites()}
+ if(page==="wardrobe")renderWardrobe();
+}
+document.querySelectorAll("nav button").forEach(function(b){
+ b.addEventListener("click",function(){go(b.dataset.page)});
+});
+function needLogin(){
+ if(user)return false;
+ toast("Please sign in first.");
+ go("profile");
+ return true;
+}
+function reportError(e){
+ console.error(e);
+ toast(e.message||"Something went wrong. Check your connection and Firebase settings.");
+}
+function closeViewer(){$("photoViewer").style.display="none"}
+function viewPhoto(src){
+ if(!src)return;
+ $("viewerImg").src=src;
+ $("photoViewer").style.display="flex";
+}
+$("photoViewer").querySelector("img").addEventListener("click",function(e){e.stopPropagation()});
+$("photoViewer").querySelector("button").addEventListener("click",function(e){e.stopPropagation();closeViewer()});
 
 function resizePhoto(file,callback){
  if(!file){callback("");return}
- if(!file.type.startsWith("image/")){alert("Choose an image file.");return}
- if(file.size>8*1024*1024){alert("Please choose an image smaller than 8 MB.");return}
+ if(!file.type.startsWith("image/")){toast("Choose an image file.");return}
+ if(file.size>8*1024*1024){toast("Choose an image smaller than 8 MB.");return}
  var reader=new FileReader();
  reader.onload=function(){
   var img=new Image();
@@ -224,23 +298,38 @@ function resizePhoto(file,callback){
    c.width=Math.max(1,Math.round(img.width*scale));
    c.height=Math.max(1,Math.round(img.height*scale));
    c.getContext("2d").drawImage(img,0,0,c.width,c.height);
-   callback(c.toDataURL("image/jpeg",.65));
+   callback(c.toDataURL("image/jpeg",.6));
   };
-  img.onerror=function(){alert("Could not open the image.")};
+  img.onerror=function(){toast("Could not open the image.")};
   img.src=reader.result;
  };
- reader.onerror=function(){alert("Could not read the image.")};
+ reader.onerror=function(){toast("Could not read the image.")};
  reader.readAsDataURL(file);
 }
+function setupPhoto(cameraId,galleryId,previewId,callback){
+ function changed(file){
+  if(!file)return;
+  resizePhoto(file,function(data){
+   if(!data)return;
+   $(previewId).src=data;
+   $(previewId).hidden=false;
+   callback(data);
+  });
+ }
+ $(cameraId).addEventListener("change",function(){changed(this.files[0])});
+ $(galleryId).addEventListener("change",function(){changed(this.files[0])});
+}
+setupPhoto("photoCamera","photoGallery","listingPreview",function(data){currentPhoto=data});
+setupPhoto("sphotoCamera","sphotoGallery","swapPreview",function(data){currentSwapPhoto=data});
 
 $("login").onclick=function(){
  var email=$("email").value.trim(),pass=$("pass").value;
- if(!email||!pass){alert("Enter your email and password.");return}
+ if(!email||!pass){toast("Enter your email and password.");return}
  auth.signInWithEmailAndPassword(email,pass).catch(reportError);
 };
 $("signup").onclick=function(){
  var email=$("email").value.trim(),pass=$("pass").value;
- if(!email||pass.length<6){alert("Enter a valid email and a password with at least 6 characters.");return}
+ if(!email||pass.length<6){toast("Enter an email and a password of at least 6 characters.");return}
  auth.createUserWithEmailAndPassword(email,pass).catch(reportError);
 };
 $("logout").onclick=function(){auth.signOut().catch(reportError)};
@@ -254,71 +343,117 @@ auth.onAuthStateChanged(function(u){
  renderFeed();renderSwaps();startOfferListener();
 });
 
+db.collection("listings").orderBy("createdAt","desc").limit(50).onSnapshot(
+ function(s){feedSnap=s;renderFeed()},
+ function(e){$("homeMsg").textContent="Could not load listings. Check Firestore rules."}
+);
+db.collection("swaps").orderBy("createdAt","desc").limit(50).onSnapshot(
+ function(s){swapSnap=s;renderSwaps()},
+ function(e){$("swapMsg").textContent="Could not load swaps. Check Firestore rules."}
+);
+
 function renderFeed(){
  if(!feedSnap)return;
- var feed=$("feed"),msg=$("homeMsg");
+ var feed=$("feed"),msg=$("homeMsg"),query=$("search").value.trim().toLowerCase();
  feed.innerHTML="";
- msg.style.display=feedSnap.empty?"block":"none";
- msg.textContent="No jerseys listed yet. Be the first to sell!";
- var mineCount=0;
+ var visible=0,mineCount=0;
  feedSnap.forEach(function(doc){
-  var x=doc.data(),card=node("article","card product");
-  if(x.ownerId===user?.uid)mineCount++;
-  if(x.photo){var img=node("img");img.src=x.photo;img.alt=x.name||"Jersey";card.appendChild(img)}
-  else{var ph=node("div","empty","👕");card.appendChild(ph)}
+  var x=doc.data();
+  if(user&&x.ownerId===user.uid)mineCount++;
+  if(query&&!(x.name||"").toLowerCase().includes(query)&&!(x.size||"").toLowerCase().includes(query))return;
+  visible++;
+  var card=node("article","card product");
+  if(x.photo){
+   var img=node("img");img.src=x.photo;img.alt=x.name||"Jersey";
+   img.onclick=function(){viewPhoto(x.photo)};
+   card.appendChild(img);
+  }else{
+   card.appendChild(node("div","empty","👕 Jersey photo unavailable"));
+  }
   var info=node("div","product-info");
   info.appendChild(node("div","product-title",x.name||"Jersey"));
-  info.appendChild(node("p","muted","Size "+(x.size||"Not specified")));
+  info.appendChild(node("p","muted","Size: "+(x.size||"Not specified")));
   info.appendChild(node("div","price",money(x.price)));
+  var fav=node("button","btn btn-light",favorites.includes(doc.id)?"♥ Saved":"♡ Favorite");
+  fav.onclick=function(){
+   if(favorites.includes(doc.id))favorites=favorites.filter(function(id){return id!==doc.id});
+   else favorites.push(doc.id);
+   save("jersify_favorites",favorites);
+   fav.textContent=favorites.includes(doc.id)?"♥ Saved":"♡ Favorite";
+   renderFavorites();
+  };
+  info.appendChild(fav);
   if(user&&x.ownerId===user.uid){
    info.appendChild(node("span","status open","YOUR LISTING"));
-   var del=node("button","btn btn-danger btn-small","REMOVE");
-   del.onclick=function(){if(confirm("Remove this listing?"))db.collection("listings").doc(doc.id).delete().catch(reportError)};
+   var del=node("button","btn btn-danger btn-small","REMOVE LISTING");
+   del.onclick=function(){
+    if(confirm("Remove this listing?"))db.collection("listings").doc(doc.id).delete().catch(reportError);
+   };
    info.appendChild(del);
+  }else{
+   var contact=node("button","btn","CONTACT SELLER");
+   contact.onclick=function(){
+    var phone=x.phone||sellerPhones[x.ownerId]||"";
+    if(!phone){toast("Seller has not added a WhatsApp number.");return}
+    window.open("https://wa.me/"+phone.replace(/\D/g,"")+"?text="+encodeURIComponent("Hello, I'm interested in your JERSIFY listing: "+x.name)," _blank");
+   };
+   info.appendChild(contact);
   }
   card.appendChild(info);feed.appendChild(card);
  });
  $("s-listed").textContent=mineCount;
+ msg.style.display=visible?"none":"block";
+ msg.textContent=query?"No matching jerseys found.":"No jerseys listed yet. Be the first to sell!";
 }
-db.collection("listings").orderBy("createdAt","desc").limit(50).onSnapshot(function(s){feedSnap=s;renderFeed()},function(e){$("homeMsg").textContent="Could not load listings. Check Firestore rules.";});
 
 $("add").onclick=function(){
  if(needLogin())return;
- var name=$("name").value.trim(),size=$("size").value,price=Number($("price").value),file=$("photo").files[0],btn=$("add");
- if(!name||!size||$("price").value===""||price<0){alert("Enter the jersey name, size, and price.");return}
+ var name=$("name").value.trim(),size=$("size").value;
+ var price=Number($("price").value),phone=$("sellerPhone").value.trim(),btn=$("add");
+ if(!name||!size||!(price>0)){toast("Enter the jersey name, size, and a price above zero.");return}
+ if(phone&&!/^\+?\d{10,15}$/.test(phone.replace(/[\s()-]/g,""))){toast("Enter a valid phone number with country code.");return}
  btn.disabled=true;btn.textContent="PUBLISHING...";
- resizePhoto(file,function(photo){
-  db.collection("listings").add({name:name,size:size,price:price,photo:photo,ownerId:user.uid,createdAt:firebase.firestore.FieldValue.serverTimestamp()})
-  .then(function(){["name","price","photo"].forEach(function(id){$(id).value=""});$("size").value="";go("home")})
-  .catch(reportError).finally(function(){btn.disabled=false;btn.textContent="PUBLISH LISTING ↗"});
- });
+ var photo=currentPhoto;
+ db.collection("listings").add({
+  name:name,size:size,price:price,photo:photo,phone:phone,
+  ownerId:user.uid,createdAt:firebase.firestore.FieldValue.serverTimestamp()
+ }).then(function(){
+  ["name","price","sellerPhone","photoCamera","photoGallery"].forEach(function(id){$(id).value=""});
+  currentPhoto="";$("listingPreview").hidden=true;
+  toast("Your jersey listing was published!");
+  go("home");
+ }).catch(reportError).finally(function(){btn.disabled=false;btn.textContent="PUBLISH LISTING ↗"});
 };
 
 $("check").onclick=function(){
  var a=Number($("mine").value),b=Number($("theirs").value),box=$("result");
- if(!(a>0&&b>0)){alert("Enter both values above zero.");return}
+ if(!(a>0&&b>0)){toast("Enter both values above zero.");return}
  var diff=Math.abs(a-b),pct=Math.round(diff/Math.max(a,b)*100);
  box.className="result "+(pct<=15?"fair":"unfair");
- box.textContent=pct<=15?"✓ Fair trade: the values are only "+pct+"% apart.":"The values differ by "+pct+"%. The lower-value side would need about "+money(diff)+" extra value to match.";
+ box.textContent=pct<=15?"✓ Fair trade estimate: values are "+pct+"% apart.":"Values differ by "+pct+"%. The lower-value side would need about "+money(diff)+" extra value to match.";
 };
 
 function renderSwaps(){
  if(!swapSnap)return;
- var list=$("slist"),msg=$("swapMsg"),count=0;
+ var list=$("slist"),msg=$("swapMsg"),count=0,visible=0;
  list.innerHTML="";
- msg.style.display=swapSnap.empty?"block":"none";
- msg.textContent="No swaps yet. Be the first to post one.";
  swapSnap.forEach(function(doc){
-  var s=doc.data(),card=node("div","card"),head=node("div","swaphead");
+  var s=doc.data(),mine=user&&s.ownerId===user.uid;
+  if(mine)count++;
+  visible++;
+  var card=node("div","card"),head=node("div","swaphead");
   head.appendChild(node("h3","",s.name||"Jersey swap"));
   head.appendChild(node("span","status "+(s.status==="swapped"?"swapped":s.status==="offer-pending"?"pending":"open"),s.status==="swapped"?"Swapped":s.status==="offer-pending"?"Offer pending":"Open"));
   card.appendChild(head);
-  if(s.photo){var im=node("img");im.src=s.photo;im.alt=s.name||"Swap jersey";im.style.width="100%";im.style.borderRadius="12px";card.appendChild(im)}
+  if(s.photo){
+   var im=node("img");im.src=s.photo;im.alt=s.name||"Swap jersey";
+   im.style.width="100%";im.style.borderRadius="12px";im.style.maxHeight="300px";im.style.objectFit="contain";
+   im.onclick=function(){viewPhoto(s.photo)};card.appendChild(im);
+  }
   card.appendChild(node("p","muted","Wants: "+(s.want||"Open to offers")));
   card.appendChild(node("p","muted","Size: "+(s.size||"Not specified")));
   card.appendChild(node("div","price",money(s.value)));
-  if(user&&s.ownerId===user.uid){
-   count++;
+  if(mine){
    card.appendChild(node("span","status open","YOUR SWAP"));
    var remove=node("button","btn btn-danger btn-small","REMOVE");
    remove.onclick=function(){if(confirm("Remove this swap?"))db.collection("swaps").doc(doc.id).delete().catch(reportError)};
@@ -327,6 +462,11 @@ function renderSwaps(){
    var offer=node("button","btn","OFFER A SWAP");
    offer.onclick=function(){makeOffer(doc.id,s)};
    card.appendChild(offer);
+   if(s.phone){
+    var contact=node("button","btn btn-light","CONTACT ON WHATSAPP");
+    contact.onclick=function(){window.open("https://wa.me/"+s.phone.replace(/\D/g,"")+"?text="+encodeURIComponent("Hello, I'm interested in your JERSIFY swap: "+s.name),"_blank")};
+    card.appendChild(contact);
+   }
   }else if(!user){
    var login=node("button","btn btn-light","LOG IN TO OFFER");
    login.onclick=function(){go("profile")};card.appendChild(login);
@@ -334,30 +474,38 @@ function renderSwaps(){
   list.appendChild(card);
  });
  $("s-swaps").textContent=count;
+ msg.style.display=visible?"none":"block";
+ msg.textContent="No swaps yet. Be the first to post one.";
 }
-db.collection("swaps").orderBy("createdAt","desc").limit(50).onSnapshot(function(s){swapSnap=s;renderSwaps()},function(){$("swapMsg").textContent="Could not load swaps. Check Firestore rules."});
 
 $("sadd").onclick=function(){
  if(needLogin())return;
- var name=$("sname").value.trim(),value=Number($("svalue").value),want=$("swant").value.trim(),size=$("ssize").value,file=$("sphoto").files[0],btn=$("sadd");
- if(!name||!(value>0)||!want){alert("Enter a jersey name, value above zero, and what you want in return.");return}
+ var name=$("sname").value.trim(),value=Number($("svalue").value);
+ var want=$("swant").value.trim(),size=$("ssize").value;
+ var phone=$("sphone").value.trim(),btn=$("sadd");
+ if(!name||!(value>0)||!want){toast("Enter the jersey name, value, and what you want in return.");return}
+ if(phone&&!/^\+?\d{10,15}$/.test(phone.replace(/[\s()-]/g,""))){toast("Enter a valid phone number with country code.");return}
  btn.disabled=true;btn.textContent="POSTING...";
- resizePhoto(file,function(photo){
-  db.collection("swaps").add({name:name,value:value,want:want,size:size,photo:photo,ownerId:user.uid,status:"open",createdAt:firebase.firestore.FieldValue.serverTimestamp()})
-  .then(function(){["sname","svalue","swant","sphoto"].forEach(function(id){$(id).value=""});$("ssize").value=""})
-  .catch(reportError).finally(function(){btn.disabled=false;btn.textContent="POST MY SWAP ↗"});
- });
+ db.collection("swaps").add({
+  name:name,value:value,want:want,size:size,photo:currentSwapPhoto,
+  phone:phone,ownerId:user.uid,status:"open",
+  createdAt:firebase.firestore.FieldValue.serverTimestamp()
+ }).then(function(){
+  ["sname","svalue","swant","sphone","sphotoCamera","sphotoGallery"].forEach(function(id){$(id).value=""});
+  currentSwapPhoto="";$("swapPreview").hidden=true;
+  toast("Your swap was posted!");
+ }).catch(reportError).finally(function(){btn.disabled=false;btn.textContent="POST MY SWAP ↗"});
 };
 
 function makeOffer(swapId,s){
  if(needLogin())return;
- if(s.ownerId===user.uid){alert("You cannot offer on your own swap.");return}
+ if(s.ownerId===user.uid){toast("You cannot offer on your own swap.");return}
  var choices=wardrobe.filter(function(w){return w.name});
- if(!choices.length){alert("Add a jersey to your Wardrobe first.");go("wardrobe");return}
+ if(!choices.length){toast("Add a jersey to your Wardrobe first.");go("wardrobe");return}
  var answer=prompt("Choose a jersey from your Wardrobe by number:\n"+choices.map(function(w,i){return(i+1)+". "+w.name+" — "+money(w.value)}).join("\n"),"1");
  if(answer===null)return;
  var index=Number(answer)-1;
- if(!Number.isInteger(index)||index<0||index>=choices.length){alert("Invalid selection.");return}
+ if(!Number.isInteger(index)||index<0||index>=choices.length){toast("Invalid selection.");return}
  var item=choices[index];
  db.collection("offers").add({
   swapId:swapId,swapOwnerId:s.ownerId,swapName:s.name,
@@ -365,31 +513,34 @@ function makeOffer(swapId,s){
   requestedValue:Number(s.value)||0,
   valueDifference:Math.abs((Number(item.value)||0)-(Number(s.value)||0)),
   status:"pending",createdAt:firebase.firestore.FieldValue.serverTimestamp()
- }).then(function(){alert("Offer sent. The owner can review it in their Profile inbox.")})
- .catch(function(e){alert("Could not send offer: "+e.message+" Check your Firestore rules for the offers collection.")});
+ }).then(function(){toast("Swap offer sent!")}).catch(reportError);
 }
 
 function startOfferListener(){
  if(offerUnsub){offerUnsub();offerUnsub=null}
- if(!user){$("inboxMsg").textContent="Sign in to view incoming offers.";return}
- offerUnsub=db.collection("offers").where("swapOwnerId","==",user.uid).onSnapshot(function(s){renderInbox(s)},function(){$("inboxMsg").textContent="Offers could not load. Check Firestore security rules."});
+ if(!user){$("inboxMsg").textContent="Sign in to view incoming offers.";renderInbox();return}
+ offerUnsub=db.collection("offers").where("swapOwnerId","==",user.uid).onSnapshot(
+  function(s){renderInbox(s)},
+  function(e){$("inboxMsg").textContent="Offers could not load. Check Firestore rules."}
+ );
 }
 
 function renderInbox(snap){
  var box=$("inbox"),msg=$("inboxMsg");box.innerHTML="";
- if(!user||!snap){msg.style.display="block";return}
+ if(!user||!snap){msg.style.display="block";msg.textContent="Sign in to view offers.";return}
  msg.style.display=snap.empty?"block":"none";msg.textContent="No incoming offers yet.";
  snap.forEach(function(doc){
   var o=doc.data(),card=node("div","card"),head=node("div","swaphead");
   head.appendChild(node("b","",o.swapName||"Swap offer"));
-  head.appendChild(node("span","status "+(o.status==="accepted"?"swapped":o.status==="declined"?"":"pending"),o.status||"pending"));
+  head.appendChild(node("span","status "+(o.status==="accepted"?"swapped":"pending"),o.status||"pending"));
   card.appendChild(head);
   card.appendChild(node("p","","Offered jersey: "+(o.jerseyName||"Jersey")));
   card.appendChild(node("p","","Offer value: "+money(o.jerseyValue)));
   card.appendChild(node("p","muted","Value difference: "+money(o.valueDifference)));
   if(o.status==="pending"){
    var actions=node("div","formgrid");
-   var accept=node("button","btn btn-green","ACCEPT"),decline=node("button","btn btn-danger","DECLINE");
+   var accept=node("button","btn btn-green","ACCEPT");
+   var decline=node("button","btn btn-danger","DECLINE");
    accept.onclick=function(){decideOffer(doc.id,o,"accepted")};
    decline.onclick=function(){decideOffer(doc.id,o,"declined")};
    actions.appendChild(accept);actions.appendChild(decline);card.appendChild(actions);
@@ -399,11 +550,37 @@ function renderInbox(snap){
 }
 
 function decideOffer(id,o,status){
- if(!user||o.swapOwnerId!==user.uid){alert("Only the swap owner can decide.");return}
+ if(!user||o.swapOwnerId!==user.uid){toast("Only the swap owner can decide.");return}
  var batch=db.batch();
- batch.update(db.collection("offers").doc(id),{status:status,decidedAt:firebase.firestore.FieldValue.serverTimestamp()});
- if(status==="accepted")batch.update(db.collection("swaps").doc(o.swapId),{status:"swapped",acceptedOfferId:id});
- batch.commit().then(function(){alert(status==="accepted"?"Offer accepted.":"Offer declined.")}).catch(reportError);
+ batch.update(db.collection("offers").doc(id),{
+  status:status,decidedAt:firebase.firestore.FieldValue.serverTimestamp()
+ });
+ if(status==="accepted"){
+  batch.update(db.collection("swaps").doc(o.swapId),{status:"swapped",acceptedOfferId:id});
+ }
+ batch.commit().then(function(){toast(status==="accepted"?"Offer accepted.":"Offer declined.")}).catch(reportError);
+}
+
+function renderFavorites(){
+ var box=$("favlist");if(!box)return;
+ box.innerHTML="";
+ var found=0;
+ if(feedSnap){
+  feedSnap.forEach(function(doc){
+   if(!favorites.includes(doc.id))return;
+   found++;
+   var x=doc.data(),card=node("div","card");
+   card.appendChild(node("b","",x.name||"Jersey"));
+   card.appendChild(node("div","price",money(x.price)));
+   var remove=node("button","btn btn-light","REMOVE FAVORITE");
+   remove.onclick=function(){
+    favorites=favorites.filter(function(id){return id!==doc.id});
+    save("jersify_favorites",favorites);renderFavorites();renderFeed();
+   };
+   card.appendChild(remove);box.appendChild(card);
+  });
+ }
+ if(!found)box.appendChild(node("div","empty","No saved favorites yet. Browse jerseys and tap Favorite."));
 }
 
 function renderWardrobe(){
@@ -414,23 +591,29 @@ function renderWardrobe(){
   head.appendChild(node("b","",w.name));head.appendChild(node("span","status",w.size||"No size"));
   card.appendChild(head);card.appendChild(node("div","price",money(w.value)));
   var remove=node("button","btn btn-danger btn-small","REMOVE");
-  remove.onclick=function(){wardrobe.splice(i,1);saveWardrobe();renderWardrobe()};
+  remove.onclick=function(){wardrobe.splice(i,1);save("jersify_wardrobe",wardrobe);renderWardrobe()};
   card.appendChild(remove);list.appendChild(card);
  });
  if(!wardrobe.length)list.appendChild(node("div","empty","Your wardrobe is empty."));
- $("total").textContent=money(total);$("s-ward").textContent=wardrobe.length;$("s-value").textContent=money(total);
+ $("total").textContent=money(total);
+ $("s-ward").textContent=wardrobe.length;
+ $("s-value").textContent=money(total);
 }
-
 $("wadd").onclick=function(){
  var name=$("wname").value.trim(),value=Number($("wvalue").value)||0,size=$("wsize").value;
- if(!name){alert("Enter a jersey name.");return}
- wardrobe.push({name:name,value:value,size:size});saveWardrobe();renderWardrobe();
+ if(!name){toast("Enter a jersey name.");return}
+ if(value<0){toast("Value cannot be negative.");return}
+ wardrobe.push({name:name,value:value,size:size});
+ save("jersify_wardrobe",wardrobe);renderWardrobe();
  $("wname").value="";$("wvalue").value="";$("wsize").value="";
+ toast("Added to your wardrobe.");
 };
 $("clear").onclick=function(){
- if(confirm("Delete all wardrobe items saved on this device? This will not delete Firebase listings or swaps.")){wardrobe=[];saveWardrobe();renderWardrobe()}
+ if(confirm("Delete all wardrobe items saved on this device? This does not delete online listings or swaps.")){
+  wardrobe=[];save("jersify_wardrobe",wardrobe);renderWardrobe();
+ }
 };
 renderWardrobe();
 </script>
 </body>
-  </html>
+</html>
