@@ -5,64 +5,338 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#101010">
 <title>JERSIFY — Global Sports Jersey Marketplace</title>
+
 <style>
-:root{--bg:#101010;--panel:#1b1b1b;--line:#333;--text:#f6f6f6;--muted:#aaa;--accent:#c8ff3d;--danger:#ff6b6b}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-header{padding:20px 16px 14px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#101010;z-index:5}
-.brand{font-size:25px;font-weight:900;letter-spacing:1px}
-.brand span{color:var(--accent)}
-.tagline{font-size:12px;color:var(--muted);margin-top:5px}
-.currencybar{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:12px;color:var(--muted)}
-select,input,textarea,button{font:inherit}
-select,input,textarea{background:#111;color:var(--text);border:1px solid #444;border-radius:9px;padding:11px;width:100%}
-.currencybar select{width:auto;max-width:150px;padding:8px}
-nav{display:flex;gap:6px;overflow-x:auto;padding:10px;background:#101010;position:sticky;top:116px;z-index:4;border-bottom:1px solid var(--line)}
-nav button{background:transparent;color:#bbb;border:0;padding:10px 12px;border-radius:8px;white-space:nowrap}
-nav button.active{background:var(--accent);color:#111;font-weight:bold}
-main{max-width:850px;margin:auto;padding:16px 14px 70px}
-section{display:none}
-section.active{display:block}
-h1{font-size:25px;margin:10px 0}
-h2{font-size:19px;margin:12px 0}
-p{line-height:1.5}
-.muted{color:var(--muted);font-size:13px}
-.form{display:grid;gap:12px;margin:16px 0}
-label{display:grid;gap:7px;font-size:13px;color:#ddd}
-button.primary{background:var(--accent);color:#111;font-weight:bold;border:0;border-radius:9px;padding:12px 15px;cursor:pointer}
-button.secondary{background:#292929;color:white;border:1px solid #444;border-radius:9px;padding:10px 12px;cursor:pointer}
-button.danger{background:#361c1c;color:#ffaaaa;border:1px solid #6b3333;border-radius:9px;padding:10px}
-button:disabled{opacity:.45}
-.toolbar{display:flex;gap:8px;margin:15px 0}
-.toolbar input{flex:1;min-width:0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:15px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;overflow:hidden}
-.card img{width:100%;height:210px;object-fit:cover;background:#252525;display:block}
-.cardbody{padding:13px}
-.card h3{font-size:17px;margin:0 0 8px;overflow-wrap:anywhere}
-.price{font-weight:bold;color:var(--accent);font-size:16px}
-.estimate{font-size:12px;color:var(--muted);margin-top:5px}
-.meta{font-size:12px;color:var(--muted);margin:8px 0}
-.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
-.actions button{font-size:12px}
-.notice{background:#20251a;border:1px solid #48552b;color:#e8ffc0;padding:12px;border-radius:10px;font-size:13px;margin:12px 0}
-.error{color:#ff9999;font-size:13px;white-space:pre-wrap}
-.success{color:var(--accent);font-size:13px;white-space:pre-wrap}
-.empty{padding:24px;text-align:center;color:var(--muted);border:1px dashed #444;border-radius:12px;margin-top:15px}
-.preview{max-width:100%;max-height:220px;object-fit:contain;border-radius:10px}
-.offer{background:#1b1b1b;border:1px solid #333;border-radius:10px;padding:13px;margin:10px 0}
-hr{border:0;border-top:1px solid #333;margin:18px 0}
-footer{text-align:center;color:#777;font-size:12px;padding:20px}
-a{color:var(--accent)}
-.sporttag{display:inline-block;font-size:11px;color:#111;background:var(--accent);padding:4px 7px;border-radius:5px;margin-bottom:8px;font-weight:bold}
-@media(max-width:480px){header{padding:16px 12px 12px}nav{top:112px}main{padding:12px}.card img{height:190px}}
+:root {
+  --bg:#101010;
+  --panel:#1b1b1b;
+  --line:#333;
+  --text:#f6f6f6;
+  --muted:#aaa;
+  --accent:#c8ff3d;
+  --danger:#ff6b6b;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+}
+
+header {
+  padding:20px 16px 14px;
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  background:#101010;
+  z-index:5;
+}
+
+.brand {
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.brand span { color:var(--accent); }
+
+.tagline {
+  font-size:12px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.currencybar {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:14px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+select,input,textarea,button { font:inherit; }
+
+select,input,textarea {
+  background:#111;
+  color:var(--text);
+  border:1px solid #444;
+  border-radius:9px;
+  padding:11px;
+  width:100%;
+}
+
+.currencybar select {
+  width:auto;
+  max-width:150px;
+  padding:8px;
+}
+
+nav {
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding:10px;
+  background:#101010;
+  position:sticky;
+  top:116px;
+  z-index:4;
+  border-bottom:1px solid var(--line);
+}
+
+nav button {
+  background:transparent;
+  color:#bbb;
+  border:0;
+  padding:10px 12px;
+  border-radius:8px;
+  white-space:nowrap;
+}
+
+nav button.active {
+  background:var(--accent);
+  color:#111;
+  font-weight:bold;
+}
+
+main {
+  max-width:850px;
+  margin:auto;
+  padding:16px 14px 70px;
+}
+
+section { display:none; }
+section.active { display:block; }
+
+h1 {
+  font-size:25px;
+  margin:10px 0;
+}
+
+h2 {
+  font-size:19px;
+  margin:12px 0;
+}
+
+p { line-height:1.5; }
+
+.muted {
+  color:var(--muted);
+  font-size:13px;
+}
+
+.form {
+  display:grid;
+  gap:12px;
+  margin:16px 0;
+}
+
+label {
+  display:grid;
+  gap:7px;
+  font-size:13px;
+  color:#ddd;
+}
+
+button.primary {
+  background:var(--accent);
+  color:#111;
+  font-weight:bold;
+  border:0;
+  border-radius:9px;
+  padding:12px 15px;
+  cursor:pointer;
+}
+
+button.secondary {
+  background:#292929;
+  color:white;
+  border:1px solid #444;
+  border-radius:9px;
+  padding:10px 12px;
+  cursor:pointer;
+}
+
+button.danger {
+  background:#361c1c;
+  color:#ffaaaa;
+  border:1px solid #6b3333;
+  border-radius:9px;
+  padding:10px;
+}
+
+button:disabled { opacity:.45; }
+
+.toolbar {
+  display:flex;
+  gap:8px;
+  margin:15px 0;
+}
+
+.toolbar input {
+  flex:1;
+  min-width:0;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+  margin-top:15px;
+}
+
+.card {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
+  overflow:hidden;
+}
+
+.card img {
+  width:100%;
+  height:210px;
+  object-fit:cover;
+  background:#252525;
+  display:block;
+}
+
+.cardbody { padding:13px; }
+
+.card h3 {
+  font-size:17px;
+  margin:0 0 8px;
+  overflow-wrap:anywhere;
+}
+
+.price {
+  font-weight:bold;
+  color:var(--accent);
+  font-size:16px;
+}
+
+.estimate {
+  font-size:12px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.meta {
+  font-size:12px;
+  color:var(--muted);
+  margin:8px 0;
+}
+
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:12px;
+}
+
+.actions button { font-size:12px; }
+
+.notice {
+  background:#20251a;
+  border:1px solid #48552b;
+  color:#e8ffc0;
+  padding:12px;
+  border-radius:10px;
+  font-size:13px;
+  margin:12px 0;
+}
+
+.error {
+  color:#ff9999;
+  font-size:13px;
+  white-space:pre-wrap;
+}
+
+.success {
+  color:var(--accent);
+  font-size:13px;
+  white-space:pre-wrap;
+}
+
+.empty {
+  padding:24px;
+  text-align:center;
+  color:var(--muted);
+  border:1px dashed #444;
+  border-radius:12px;
+  margin-top:15px;
+}
+
+.preview {
+  max-width:100%;
+  max-height:220px;
+  object-fit:contain;
+  border-radius:10px;
+}
+
+.offer {
+  background:#1b1b1b;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:13px;
+  margin:10px 0;
+}
+
+hr {
+  border:0;
+  border-top:1px solid #333;
+  margin:18px 0;
+}
+
+footer {
+  text-align:center;
+  color:#777;
+  font-size:12px;
+  padding:20px;
+}
+
+a { color:var(--accent); }
+
+.sporttag {
+  display:inline-block;
+  font-size:11px;
+  color:#111;
+  background:var(--accent);
+  padding:4px 7px;
+  border-radius:5px;
+  margin-bottom:8px;
+  font-weight:bold;
+}
+
+/* Camera and gallery buttons */
+.photo-buttons {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.photo-buttons button {
+  flex:1;
+  min-width:145px;
+}
+
+@media(max-width:480px) {
+  header { padding:16px 12px 12px; }
+  nav { top:112px; }
+  main { padding:12px; }
+  .card img { height:190px; }
+}
 </style>
 </head>
+
 <body>
 
 <header>
   <div class="brand">JER<span>SIFY</span></div>
   <div class="tagline">Sports jerseys. Collect, sell and swap worldwide.</div>
+
   <div class="currencybar">
     <span>Show estimates in</span>
     <select id="displayCurrency" onchange="changeDisplayCurrency(this.value)">
@@ -79,6 +353,7 @@ a{color:var(--accent)}
       <option value="JPY">JPY — ¥</option>
     </select>
   </div>
+
   <div id="rateStatus" class="tagline">Loading exchange rates…</div>
 </header>
 
@@ -94,10 +369,15 @@ a{color:var(--accent)}
 
 <section id="home" class="active">
   <h1>Find your next jersey.</h1>
-  <p class="muted">Explore sports jerseys listed by fans around the world. Original prices stay in the seller's currency; converted amounts are estimates.</p>
+  <p class="muted">
+    Explore sports jerseys listed by fans around the world.
+    Original prices stay in the seller's currency; converted amounts are estimates.
+  </p>
 
   <div class="toolbar">
-    <input id="searchBox" placeholder="Search sport, jersey, team, size or country…" oninput="renderListings()">
+    <input id="searchBox"
+      placeholder="Search sport, jersey, team, size or country…"
+      oninput="renderListings()">
   </div>
 
   <div class="toolbar">
@@ -122,10 +402,15 @@ a{color:var(--accent)}
 
 <section id="sell">
   <h1>Sell a sports jersey</h1>
-  <p class="muted">Choose the sport and the currency you actually want to sell in. Upload a clear photo from your camera or gallery.</p>
+  <p class="muted">
+    Choose the sport and the currency you actually want to sell in.
+    Upload a clear photo using your camera or gallery.
+  </p>
+
   <div id="sellMessage"></div>
 
   <form id="sellForm" class="form">
+
     <label>Sport
       <select id="listingSport" required>
         <option value="">Choose sport</option>
@@ -142,7 +427,8 @@ a{color:var(--accent)}
     </label>
 
     <label>Jersey name / team
-      <input id="listingName" maxlength="90" required placeholder="e.g. Nigeria 2024 Home Jersey">
+      <input id="listingName" maxlength="90" required
+        placeholder="e.g. Nigeria 2024 Home Jersey">
     </label>
 
     <label>Size
@@ -161,7 +447,8 @@ a{color:var(--accent)}
     </label>
 
     <label>Price in your currency
-      <input id="listingPrice" type="number" min="0" step="0.01" required placeholder="e.g. 25000">
+      <input id="listingPrice" type="number" min="0" step="0.01"
+        required placeholder="e.g. 25000">
     </label>
 
     <label>Original currency
@@ -181,28 +468,52 @@ a{color:var(--accent)}
     </label>
 
     <label>Your country
-      <input id="listingCountry" maxlength="80" required placeholder="e.g. Nigeria">
+      <input id="listingCountry" maxlength="80" required
+        placeholder="e.g. Nigeria">
     </label>
 
     <label>WhatsApp number with country code (optional)
-      <input id="listingPhone" maxlength="30" placeholder="e.g. +2348012345678">
+      <input id="listingPhone" maxlength="30"
+        placeholder="e.g. +2348012345678">
     </label>
 
-    <label>Jersey photo — camera or gallery
-      <input id="listingPhoto" type="file" accept="image/*" required>
-    </label>
+    <label>Jersey photo</label>
 
-    <img id="listingPreview" class="preview" hidden alt="Jersey photo preview">
+    <div class="photo-buttons">
+      <button class="secondary" type="button"
+        onclick="openCamera('listing')">
+        📷 Take Photo
+      </button>
+
+      <button class="secondary" type="button"
+        onclick="openGallery('listing')">
+        🖼️ Choose from Gallery
+      </button>
+    </div>
+
+    <input id="listingCamera" type="file"
+      accept="image/*" capture="environment" hidden>
+
+    <input id="listingGallery" type="file"
+      accept="image/*" hidden>
+
+    <img id="listingPreview" class="preview"
+      hidden alt="Jersey photo preview">
+
     <button class="primary" type="submit">Publish jersey</button>
   </form>
 </section>
 
 <section id="swap">
   <h1>Swap Room</h1>
-  <p class="muted">Offer a jersey in exchange for another. Swaps can include any supported sport.</p>
+  <p class="muted">
+    Offer a jersey in exchange for another. Swaps can include any supported sport.
+  </p>
+
   <div id="swapMessage"></div>
 
   <form id="swapForm" class="form">
+
     <label>Sport of your jersey
       <select id="swapSport" required>
         <option value="">Choose sport</option>
@@ -219,7 +530,8 @@ a{color:var(--accent)}
     </label>
 
     <label>Jersey you have
-      <input id="swapName" maxlength="90" required placeholder="e.g. Lakers basketball jersey">
+      <input id="swapName" maxlength="90" required
+        placeholder="e.g. Lakers basketball jersey">
     </label>
 
     <label>Size
@@ -238,7 +550,8 @@ a{color:var(--accent)}
     </label>
 
     <label>Estimated value in your currency
-      <input id="swapValue" type="number" min="0.01" step="0.01" required placeholder="e.g. 50">
+      <input id="swapValue" type="number" min="0.01" step="0.01"
+        required placeholder="e.g. 50">
     </label>
 
     <label>Original currency
@@ -258,23 +571,45 @@ a{color:var(--accent)}
     </label>
 
     <label>What jersey do you want?
-      <input id="swapWant" maxlength="150" required placeholder="e.g. Barcelona home jersey or Lakers jersey">
+      <input id="swapWant" maxlength="150" required
+        placeholder="e.g. Barcelona home jersey or Lakers jersey">
     </label>
 
     <label>Your country
-      <input id="swapCountry" maxlength="80" required placeholder="e.g. Nigeria">
+      <input id="swapCountry" maxlength="80" required
+        placeholder="e.g. Nigeria">
     </label>
 
-    <label>Jersey photo — camera or gallery
-      <input id="swapPhoto" type="file" accept="image/*" required>
-    </label>
+    <label>Jersey photo</label>
 
-    <img id="swapPreview" class="preview" hidden alt="Swap jersey photo preview">
+    <div class="photo-buttons">
+      <button class="secondary" type="button"
+        onclick="openCamera('swap')">
+        📷 Take Photo
+      </button>
+
+      <button class="secondary" type="button"
+        onclick="openGallery('swap')">
+        🖼️ Choose from Gallery
+      </button>
+    </div>
+
+    <input id="swapCamera" type="file"
+      accept="image/*" capture="environment" hidden>
+
+    <input id="swapGallery" type="file"
+      accept="image/*" hidden>
+
+    <img id="swapPreview" class="preview"
+      hidden alt="Swap jersey photo preview">
+
     <button class="primary" type="submit">Post swap</button>
   </form>
 
   <hr>
+
   <h2>Available swaps</h2>
+
   <div id="swapFeed" class="grid">
     <div class="empty">Loading swaps…</div>
   </div>
@@ -285,8 +620,10 @@ a{color:var(--accent)}
   <p class="muted">A private list saved in this browser on this device.</p>
 
   <form id="wardrobeForm" class="form">
+
     <label>Jersey name
-      <input id="wardrobeName" maxlength="100" required placeholder="Jersey in your collection">
+      <input id="wardrobeName" maxlength="100" required
+        placeholder="Jersey in your collection">
     </label>
 
     <label>Sport
@@ -315,17 +652,21 @@ a{color:var(--accent)}
 
 <section id="profile">
   <h1>Your account</h1>
+
   <div id="authStatus" class="notice">Checking account…</div>
 
   <div id="authForms">
+
     <form id="signupForm" class="form">
       <h2>Create account</h2>
+
       <label>Email
         <input id="signupEmail" type="email" required autocomplete="email">
       </label>
 
       <label>Password (at least 6 characters)
-        <input id="signupPassword" type="password" minlength="6" required autocomplete="new-password">
+        <input id="signupPassword" type="password"
+          minlength="6" required autocomplete="new-password">
       </label>
 
       <button class="primary" type="submit">Create account</button>
@@ -335,12 +676,14 @@ a{color:var(--accent)}
 
     <form id="loginForm" class="form">
       <h2>Sign in</h2>
+
       <label>Email
         <input id="loginEmail" type="email" required autocomplete="email">
       </label>
 
       <label>Password
-        <input id="loginPassword" type="password" required autocomplete="current-password">
+        <input id="loginPassword" type="password"
+          required autocomplete="current-password">
       </label>
 
       <button class="primary" type="submit">Sign in</button>
@@ -349,8 +692,10 @@ a{color:var(--accent)}
 
   <div id="accountActions" hidden>
     <button class="secondary" onclick="logout()">Sign out</button>
+
     <h2>Offers on your swaps</h2>
     <div id="incomingOffers"></div>
+
     <h2>Offers you made</h2>
     <div id="outgoingOffers"></div>
   </div>
@@ -382,7 +727,11 @@ firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 const db = firebase.firestore();
-const CURRENCIES = ["NGN","USD","GBP","EUR","CAD","AUD","ZAR","GHS","KES","INR","JPY"];
+
+const CURRENCIES = [
+  "NGN","USD","GBP","EUR","CAD","AUD",
+  "ZAR","GHS","KES","INR","JPY"
+];
 
 let currentUser = null;
 let listings = [];
@@ -391,6 +740,16 @@ let rates = null;
 let rateDate = "";
 
 const $ = id => document.getElementById(id);
+
+const selectedPhotoFiles = {
+  listing: null,
+  swap: null
+};
+
+const previewObjectURLs = {
+  listing: null,
+  swap: null
+};
 
 function esc(value) {
   return String(value ?? "").replace(/[&<>"']/g, ch => ({
@@ -405,27 +764,30 @@ function esc(value) {
 function message(id, text, isError = false) {
   const el = $(id);
   if (!el) return;
+
   el.className = isError ? "error" : "success";
   el.textContent = text;
 }
 
 function requireLogin() {
   if (currentUser) return true;
+
   alert("Please create an account or sign in first.");
   showTab("profile", document.querySelector('[data-tab="profile"]'));
   return false;
 }
 
 function showTab(tab, button) {
-  document.querySelectorAll("main section").forEach(el =>
-    el.classList.toggle("active", el.id === tab)
-  );
+  document.querySelectorAll("main section").forEach(el => {
+    el.classList.toggle("active", el.id === tab);
+  });
 
-  document.querySelectorAll("nav button").forEach(el =>
-    el.classList.toggle("active", el.dataset.tab === tab)
-  );
+  document.querySelectorAll("nav button").forEach(el => {
+    el.classList.toggle("active", el.dataset.tab === tab);
+  });
 
   if (button) button.classList.add("active");
+
   if (tab === "wardrobe") renderWardrobe();
   if (tab === "profile") renderOffers();
 
@@ -441,6 +803,7 @@ function changeDisplayCurrency(currency) {
   if (!CURRENCIES.includes(currency)) return;
 
   localStorage.setItem("jersifyDisplayCurrency", currency);
+
   renderListings();
   renderSwaps();
   renderOffers();
@@ -459,10 +822,12 @@ function money(amount, currency) {
 }
 
 function convert(amount, from, to) {
-  if (!rates ||
-      typeof rates[from] !== "number" ||
-      typeof rates[to] !== "number" ||
-      !Number.isFinite(Number(amount))) {
+  if (
+    !rates ||
+    typeof rates[from] !== "number" ||
+    typeof rates[to] !== "number" ||
+    !Number.isFinite(Number(amount))
+  ) {
     return null;
   }
 
@@ -474,6 +839,7 @@ function priceHTML(amount, currency) {
 
   const original = money(Number(amount), currency);
   const target = getDisplayCurrency();
+
   const converted = currency === target
     ? null
     : convert(Number(amount), currency, target);
@@ -496,7 +862,9 @@ async function loadRates() {
   try {
     const response = await fetch("https://open.er-api.com/v6/latest/USD");
 
-    if (!response.ok) throw new Error("Exchange-rate request failed");
+    if (!response.ok) {
+      throw new Error("Exchange-rate request failed");
+    }
 
     const data = await response.json();
 
@@ -510,6 +878,7 @@ async function loadRates() {
     $("rateStatus").textContent = rateDate
       ? "Exchange rates updated: " + rateDate + " · estimates only"
       : "Exchange rates loaded · estimates only";
+
   } catch (err) {
     $("rateStatus").textContent =
       "Exchange rates unavailable; original prices still work.";
@@ -520,32 +889,96 @@ async function loadRates() {
   renderOffers();
 }
 
-/* Allows the phone's normal image picker to offer camera and gallery. */
-function setPreview(inputId, previewId) {
-  $(inputId).addEventListener("change", () => {
-    const file = $(inputId).files[0];
-    const preview = $(previewId);
+/* CAMERA AND GALLERY PHOTO PICKERS */
 
-    if (!file) {
-      preview.hidden = true;
-      preview.removeAttribute("src");
-      return;
-    }
+function openCamera(type) {
+  const input = type === "listing"
+    ? $("listingCamera")
+    : $("swapCamera");
+
+  input.click();
+}
+
+function openGallery(type) {
+  const input = type === "listing"
+    ? $("listingGallery")
+    : $("swapGallery");
+
+  input.click();
+}
+
+function setupPhotoPicker(type) {
+  const cameraInput = type === "listing"
+    ? $("listingCamera")
+    : $("swapCamera");
+
+  const galleryInput = type === "listing"
+    ? $("listingGallery")
+    : $("swapGallery");
+
+  const preview = type === "listing"
+    ? $("listingPreview")
+    : $("swapPreview");
+
+  function handleSelectedFile(event) {
+    const file = event.target.files && event.target.files[0];
+
+    if (!file) return;
 
     if (!file.type.startsWith("image/")) {
-      alert("Please choose an image file.");
-      $(inputId).value = "";
+      alert("Please choose a valid image file.");
+      event.target.value = "";
       return;
     }
 
-    preview.src = URL.createObjectURL(file);
+    if (previewObjectURLs[type]) {
+      URL.revokeObjectURL(previewObjectURLs[type]);
+      previewObjectURLs[type] = null;
+    }
+
+    selectedPhotoFiles[type] = file;
+
+    const objectURL = URL.createObjectURL(file);
+    previewObjectURLs[type] = objectURL;
+
+    preview.src = objectURL;
     preview.hidden = false;
-  });
+  }
+
+  cameraInput.addEventListener("change", handleSelectedFile);
+  galleryInput.addEventListener("change", handleSelectedFile);
+}
+
+function clearSelectedPhoto(type) {
+  selectedPhotoFiles[type] = null;
+
+  if (previewObjectURLs[type]) {
+    URL.revokeObjectURL(previewObjectURLs[type]);
+    previewObjectURLs[type] = null;
+  }
+
+  const cameraInput = type === "listing"
+    ? $("listingCamera")
+    : $("swapCamera");
+
+  const galleryInput = type === "listing"
+    ? $("listingGallery")
+    : $("swapGallery");
+
+  const preview = type === "listing"
+    ? $("listingPreview")
+    : $("swapPreview");
+
+  cameraInput.value = "";
+  galleryInput.value = "";
+
+  preview.removeAttribute("src");
+  preview.hidden = true;
 }
 
 async function compressPhoto(file) {
   if (!file || !file.type.startsWith("image/")) {
-    throw new Error("Choose a valid image.");
+    throw new Error("Take a photo or choose an image from your gallery.");
   }
 
   const objectURL = URL.createObjectURL(file);
@@ -556,16 +989,21 @@ async function compressPhoto(file) {
 
     await new Promise((resolve, reject) => {
       image.onload = resolve;
-      image.onerror = () => reject(new Error("Could not read this image."));
+      image.onerror = () => reject(
+        new Error("Could not read this image.")
+      );
     });
 
     const canvas = document.createElement("canvas");
+
     let width = image.naturalWidth;
     let height = image.naturalHeight;
+
     const maxSide = 640;
 
     if (width > maxSide || height > maxSide) {
       const scale = maxSide / Math.max(width, height);
+
       width = Math.round(width * scale);
       height = Math.round(height * scale);
     }
@@ -583,10 +1021,13 @@ async function compressPhoto(file) {
     }
 
     if (result.length > 590000) {
-      throw new Error("This photo is still too large. Please choose a smaller image.");
+      throw new Error(
+        "This photo is still too large. Please choose a smaller image."
+      );
     }
 
     return result;
+
   } finally {
     URL.revokeObjectURL(objectURL);
   }
@@ -599,15 +1040,30 @@ function validateCurrency(currency) {
 async function refreshData() {
   try {
     const [listingSnap, swapSnap] = await Promise.all([
-      db.collection("listings").orderBy("createdAt", "desc").limit(60).get(),
-      db.collection("swaps").orderBy("createdAt", "desc").limit(60).get()
+      db.collection("listings")
+        .orderBy("createdAt", "desc")
+        .limit(60)
+        .get(),
+
+      db.collection("swaps")
+        .orderBy("createdAt", "desc")
+        .limit(60)
+        .get()
     ]);
 
-    listings = listingSnap.docs.map(d => ({id:d.id, ...d.data()}));
-    swaps = swapSnap.docs.map(d => ({id:d.id, ...d.data()}));
+    listings = listingSnap.docs.map(d => ({
+      id:d.id,
+      ...d.data()
+    }));
+
+    swaps = swapSnap.docs.map(d => ({
+      id:d.id,
+      ...d.data()
+    }));
 
     renderListings();
     renderSwaps();
+
   } catch (err) {
     $("listingFeed").innerHTML =
       '<div class="empty">Could not load listings. Check your internet connection and Firestore rules.</div>';
@@ -631,7 +1087,12 @@ function renderListings() {
   const sport = $("sportFilter")?.value || "";
 
   const filtered = listings.filter(item =>
-    [item.name, item.size, item.country, itemSport(item)].some(value =>
+    [
+      item.name,
+      item.size,
+      item.country,
+      itemSport(item)
+    ].some(value =>
       String(value || "").toLowerCase().includes(query)
     ) &&
     (!sport || itemSport(item) === sport)
@@ -646,7 +1107,8 @@ function renderListings() {
   feed.innerHTML = filtered.map(item => {
     const photo = typeof item.photo === "string" &&
       item.photo.startsWith("data:image/")
-      ? item.photo : "";
+      ? item.photo
+      : "";
 
     const contact = String(item.sellerPhone || "").replace(/\D/g, "");
 
@@ -660,23 +1122,32 @@ function renderListings() {
 
     return '<article class="card">' +
       (photo
-        ? '<img src="' + photo + '" alt="Sports jersey photo" loading="lazy">'
+        ? '<img src="' + photo +
+          '" alt="Sports jersey photo" loading="lazy">'
         : '<div class="empty">No photo</div>') +
+
       '<div class="cardbody">' +
       '<span class="sporttag">' + esc(itemSport(item)) + '</span>' +
       '<h3>' + esc(item.name) + '</h3>' +
       priceHTML(item.price, item.currency || "NGN") +
-      '<div class="meta">Size: ' + esc(item.size || "Not specified") +
-      ' · ' + esc(item.country || "Country not provided") + '</div>' +
+
+      '<div class="meta">Size: ' +
+      esc(item.size || "Not specified") +
+      ' · ' + esc(item.country || "Country not provided") +
+      '</div>' +
+
       '<div class="actions">' + whatsapp +
+
       (mine
         ? '<button class="danger" onclick="deleteListing(\'' +
           item.id + '\')">Delete my listing</button>'
+
         : '<button class="secondary" onclick="addWardrobe(\'' +
           encodeURIComponent(item.name) + '\',\'' +
           encodeURIComponent(item.size || "") + '\',\'' +
           encodeURIComponent(itemSport(item)) +
           '\')">Save to wardrobe</button>') +
+
       '</div></div></article>';
   }).join("");
 }
@@ -694,35 +1165,48 @@ function renderSwaps() {
   feed.innerHTML = swaps.map(item => {
     const photo = typeof item.photo === "string" &&
       item.photo.startsWith("data:image/")
-      ? item.photo : "";
+      ? item.photo
+      : "";
 
     const mine = currentUser && item.ownerId === currentUser.uid;
     const status = item.status || "open";
 
     return '<article class="card">' +
+
       (photo
-        ? '<img src="' + photo + '" alt="Sports jersey photo" loading="lazy">'
+        ? '<img src="' + photo +
+          '" alt="Sports jersey photo" loading="lazy">'
         : '<div class="empty">No photo</div>') +
+
       '<div class="cardbody">' +
       '<span class="sporttag">' + esc(itemSport(item)) + '</span>' +
       '<h3>' + esc(item.name) + '</h3>' +
       priceHTML(item.value, item.currency || "NGN") +
-      '<div class="meta">Size: ' + esc(item.size || "Not specified") +
-      ' · ' + esc(item.country || "Country not provided") + '</div>' +
+
+      '<div class="meta">Size: ' +
+      esc(item.size || "Not specified") +
+      ' · ' + esc(item.country || "Country not provided") +
+      '</div>' +
+
       '<p class="muted">Wants: ' + esc(item.want) + '</p>' +
       '<div class="meta">Status: ' + esc(status) + '</div>' +
       '<div class="actions">' +
+
       (status === "open" && !mine
         ? '<button class="primary" onclick="makeOffer(\'' +
           item.id + '\')">Make an offer</button>'
         : "") +
+
       (mine
         ? '<button class="danger" onclick="deleteSwap(\'' +
           item.id + '\')">Delete my swap</button>'
         : "") +
+
       '</div></div></article>';
   }).join("");
 }
+
+/* SELL A JERSEY */
 
 $("sellForm").addEventListener("submit", async event => {
   event.preventDefault();
@@ -730,6 +1214,7 @@ $("sellForm").addEventListener("submit", async event => {
   if (!requireLogin()) return;
 
   const button = $("sellForm").querySelector('button[type="submit"]');
+
   button.disabled = true;
   message("sellMessage", "Preparing your listing…");
 
@@ -741,10 +1226,21 @@ $("sellForm").addEventListener("submit", async event => {
     const currency = $("listingCurrency").value;
     const country = $("listingCountry").value.trim();
     const sellerPhone = $("listingPhone").value.trim();
-    const file = $("listingPhoto").files[0];
+    const file = selectedPhotoFiles.listing;
 
-    if (!sport || !name || name.length > 90 ||
-        !Number.isFinite(price) || price < 0) {
+    if (!file) {
+      throw new Error(
+        "Please take a photo or choose one from your gallery."
+      );
+    }
+
+    if (
+      !sport ||
+      !name ||
+      name.length > 90 ||
+      !Number.isFinite(price) ||
+      price < 0
+    ) {
       throw new Error("Check the sport, jersey name and price.");
     }
 
@@ -752,7 +1248,9 @@ $("sellForm").addEventListener("submit", async event => {
       throw new Error("Choose a supported currency.");
     }
 
-    if (!country) throw new Error("Enter your country.");
+    if (!country) {
+      throw new Error("Enter your country.");
+    }
 
     const photo = await compressPhoto(file);
 
@@ -770,18 +1268,30 @@ $("sellForm").addEventListener("submit", async event => {
     });
 
     $("sellForm").reset();
-    $("listingPreview").hidden = true;
+    clearSelectedPhoto("listing");
 
-    message("sellMessage", "Your sports jersey has been published.");
+    message(
+      "sellMessage",
+      "Your sports jersey has been published."
+    );
 
     await refreshData();
+
     showTab("home", document.querySelector('[data-tab="home"]'));
+
   } catch (err) {
-    message("sellMessage", err.message || "Could not publish listing.", true);
+    message(
+      "sellMessage",
+      err.message || "Could not publish listing.",
+      true
+    );
+
   } finally {
     button.disabled = false;
   }
 });
+
+/* POST A SWAP */
 
 $("swapForm").addEventListener("submit", async event => {
   event.preventDefault();
@@ -789,6 +1299,7 @@ $("swapForm").addEventListener("submit", async event => {
   if (!requireLogin()) return;
 
   const button = $("swapForm").querySelector('button[type="submit"]');
+
   button.disabled = true;
   message("swapMessage", "Preparing your swap…");
 
@@ -800,19 +1311,35 @@ $("swapForm").addEventListener("submit", async event => {
     const currency = $("swapCurrency").value;
     const want = $("swapWant").value.trim();
     const country = $("swapCountry").value.trim();
-    const file = $("swapPhoto").files[0];
+    const file = selectedPhotoFiles.swap;
 
-    if (!sport || !name || name.length > 90 ||
-        !want || want.length > 150 ||
-        !Number.isFinite(value) || value <= 0) {
-      throw new Error("Check the sport, jersey name, requested jersey and value.");
+    if (!file) {
+      throw new Error(
+        "Please take a photo or choose one from your gallery."
+      );
+    }
+
+    if (
+      !sport ||
+      !name ||
+      name.length > 90 ||
+      !want ||
+      want.length > 150 ||
+      !Number.isFinite(value) ||
+      value <= 0
+    ) {
+      throw new Error(
+        "Check the sport, jersey name, requested jersey and value."
+      );
     }
 
     if (!validateCurrency(currency)) {
       throw new Error("Choose a supported currency.");
     }
 
-    if (!country) throw new Error("Enter your country.");
+    if (!country) {
+      throw new Error("Enter your country.");
+    }
 
     const photo = await compressPhoto(file);
 
@@ -826,21 +1353,30 @@ $("swapForm").addEventListener("submit", async event => {
       country,
       photo,
       ownerId: currentUser.uid,
-      status: "open",
+      status:"open",
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
 
     $("swapForm").reset();
-    $("swapPreview").hidden = true;
+    clearSelectedPhoto("swap");
 
     message("swapMessage", "Your swap has been posted.");
+
     await refreshData();
+
   } catch (err) {
-    message("swapMessage", err.message || "Could not post swap.", true);
+    message(
+      "swapMessage",
+      err.message || "Could not post swap.",
+      true
+    );
+
   } finally {
     button.disabled = false;
   }
 });
+
+/* MAKE AN OFFER */
 
 async function makeOffer(swapId) {
   if (!requireLogin()) return;
@@ -858,9 +1394,13 @@ async function makeOffer(swapId) {
   }
 
   const jerseyName = prompt("What jersey are you offering?");
+
   if (!jerseyName || !jerseyName.trim()) return;
 
-  const rawValue = prompt("What is its estimated value in your currency?");
+  const rawValue = prompt(
+    "What is its estimated value in your currency?"
+  );
+
   if (rawValue === null) return;
 
   const jerseyValue = Number(rawValue);
@@ -884,26 +1424,32 @@ async function makeOffer(swapId) {
 
   try {
     await db.collection("offers").add({
-      swapId: swap.id,
-      swapOwnerId: swap.ownerId,
-      swapName: swap.name,
-      offeredBy: currentUser.uid,
-      jerseyName: jerseyName.trim().slice(0, 90),
+      swapId:swap.id,
+      swapOwnerId:swap.ownerId,
+      swapName:swap.name,
+      offeredBy:currentUser.uid,
+      jerseyName:jerseyName.trim().slice(0, 90),
       jerseyValue,
       jerseyCurrency,
-      requestedValue: Number(swap.value),
-      requestedCurrency: swap.currency || "NGN",
-      status: "pending",
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      requestedValue:Number(swap.value),
+      requestedCurrency:swap.currency || "NGN",
+      status:"pending",
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
     });
 
     alert("Offer sent. The swap owner can review it in Account.");
     await renderOffers();
+
   } catch (err) {
     console.error(err);
-    alert("The offer could not be sent. Check your connection and Firestore rules.");
+
+    alert(
+      "The offer could not be sent. Check your connection and Firestore rules."
+    );
   }
 }
+
+/* DELETE LISTING OR SWAP */
 
 async function deleteListing(id) {
   if (!requireLogin() || !confirm("Delete your listing?")) return;
@@ -911,6 +1457,7 @@ async function deleteListing(id) {
   try {
     await db.collection("listings").doc(id).delete();
     await refreshData();
+
   } catch (err) {
     alert("Could not delete listing. " + err.message);
   }
@@ -922,10 +1469,13 @@ async function deleteSwap(id) {
   try {
     await db.collection("swaps").doc(id).delete();
     await refreshData();
+
   } catch (err) {
     alert("Could not delete swap. " + err.message);
   }
 }
+
+/* OFFERS */
 
 async function renderOffers() {
   if (!currentUser) {
@@ -941,14 +1491,23 @@ async function renderOffers() {
   try {
     const [incomingSnap, outgoingSnap] = await Promise.all([
       db.collection("offers")
-        .where("swapOwnerId", "==", currentUser.uid).get(),
+        .where("swapOwnerId", "==", currentUser.uid)
+        .get(),
 
       db.collection("offers")
-        .where("offeredBy", "==", currentUser.uid).get()
+        .where("offeredBy", "==", currentUser.uid)
+        .get()
     ]);
 
-    const incoming = incomingSnap.docs.map(d => ({id:d.id, ...d.data()}));
-    const outgoing = outgoingSnap.docs.map(d => ({id:d.id, ...d.data()}));
+    const incoming = incomingSnap.docs.map(d => ({
+      id:d.id,
+      ...d.data()
+    }));
+
+    const outgoing = outgoingSnap.docs.map(d => ({
+      id:d.id,
+      ...d.data()
+    }));
 
     $("incomingOffers").innerHTML = incoming.length
       ? incoming.map(offer => {
@@ -964,21 +1523,27 @@ async function renderOffers() {
               esc(money(
                 estimate - Number(offer.requestedValue),
                 offer.requestedCurrency
-              )) + ' (estimate only)</div>';
+              )) +
+              ' (estimate only)</div>';
 
           return '<div class="offer">' +
             '<strong>' + esc(offer.jerseyName) + '</strong>' +
-            '<div class="meta">Offer on: ' + esc(offer.swapName) + '</div>' +
+            '<div class="meta">Offer on: ' +
+            esc(offer.swapName) + '</div>' +
             priceHTML(offer.jerseyValue, offer.jerseyCurrency) +
             difference +
-            '<div class="meta">Status: ' + esc(offer.status) + '</div>' +
+            '<div class="meta">Status: ' +
+            esc(offer.status) + '</div>' +
+
             (offer.status === "pending"
               ? '<div class="actions">' +
                 '<button class="primary" onclick="decideOffer(\'' +
                 offer.id + '\',true)">Accept offer</button>' +
                 '<button class="secondary" onclick="decideOffer(\'' +
-                offer.id + '\',false)">Decline</button></div>'
+                offer.id + '\',false)">Decline</button>' +
+                '</div>'
               : "") +
+
             '</div>';
         }).join("")
       : '<div class="empty">No offers on your swaps yet.</div>';
@@ -987,12 +1552,15 @@ async function renderOffers() {
       ? outgoing.map(offer =>
           '<div class="offer">' +
           '<strong>' + esc(offer.jerseyName) + '</strong>' +
-          '<div class="meta">Offer sent for: ' + esc(offer.swapName) + '</div>' +
+          '<div class="meta">Offer sent for: ' +
+          esc(offer.swapName) + '</div>' +
           priceHTML(offer.jerseyValue, offer.jerseyCurrency) +
-          '<div class="meta">Status: ' + esc(offer.status) + '</div>' +
+          '<div class="meta">Status: ' +
+          esc(offer.status) + '</div>' +
           '</div>'
         ).join("")
       : '<div class="empty">You have not made any offers yet.</div>';
+
   } catch (err) {
     console.error(err);
 
@@ -1017,28 +1585,34 @@ async function decideOffer(offerId, accept) {
     const offerRef = db.collection("offers").doc(offerId);
     const offerSnap = await offerRef.get();
 
-    if (!offerSnap.exists) throw new Error("Offer not found.");
+    if (!offerSnap.exists) {
+      throw new Error("Offer not found.");
+    }
 
     const offer = offerSnap.data();
 
-    if (offer.swapOwnerId !== currentUser.uid ||
-        offer.status !== "pending") {
-      throw new Error("This offer is no longer available to decide.");
+    if (
+      offer.swapOwnerId !== currentUser.uid ||
+      offer.status !== "pending"
+    ) {
+      throw new Error(
+        "This offer is no longer available to decide."
+      );
     }
 
     const batch = db.batch();
 
     batch.update(offerRef, {
-      status: accept ? "accepted" : "declined",
-      decidedAt: firebase.firestore.FieldValue.serverTimestamp()
+      status:accept ? "accepted" : "declined",
+      decidedAt:firebase.firestore.FieldValue.serverTimestamp()
     });
 
     if (accept) {
       const swapRef = db.collection("swaps").doc(offer.swapId);
 
       batch.update(swapRef, {
-        status: "swapped",
-        acceptedOfferId: offerId
+        status:"swapped",
+        acceptedOfferId:offerId
       });
     }
 
@@ -1048,11 +1622,17 @@ async function decideOffer(offerId, accept) {
 
     await refreshData();
     await renderOffers();
+
   } catch (err) {
     console.error(err);
-    alert("Could not update this offer. " + (err.message || ""));
+
+    alert(
+      "Could not update this offer. " + (err.message || "")
+    );
   }
 }
+
+/* ACCOUNT */
 
 $("signupForm").addEventListener("submit", async event => {
   event.preventDefault();
@@ -1065,8 +1645,13 @@ $("signupForm").addEventListener("submit", async event => {
     );
 
     message("authMessage", "Account created successfully.");
+
   } catch (err) {
-    message("authMessage", err.message || "Could not create account.", true);
+    message(
+      "authMessage",
+      err.message || "Could not create account.",
+      true
+    );
   }
 });
 
@@ -1081,18 +1666,26 @@ $("loginForm").addEventListener("submit", async event => {
     );
 
     message("authMessage", "Signed in successfully.");
+
   } catch (err) {
-    message("authMessage", err.message || "Could not sign in.", true);
+    message(
+      "authMessage",
+      err.message || "Could not sign in.",
+      true
+    );
   }
 });
 
 async function logout() {
   try {
     await auth.signOut();
+
   } catch (err) {
     alert("Could not sign out. " + err.message);
   }
 }
+
+/* WARDROBE */
 
 function renderWardrobe() {
   const items = JSON.parse(
@@ -1102,11 +1695,16 @@ function renderWardrobe() {
   $("wardrobeList").innerHTML = items.length
     ? items.map((item, index) =>
         '<div class="offer">' +
-        '<span class="sporttag">' + esc(item.sport || "Soccer") + '</span>' +
+        '<span class="sporttag">' +
+        esc(item.sport || "Soccer") +
+        '</span>' +
         '<strong>' + esc(item.name) + '</strong>' +
-        '<div class="meta">Size: ' + esc(item.size || "Not specified") + '</div>' +
+        '<div class="meta">Size: ' +
+        esc(item.size || "Not specified") +
+        '</div>' +
         '<button class="danger" onclick="removeWardrobe(' +
-        index + ')">Remove</button></div>'
+        index + ')">Remove</button>' +
+        '</div>'
       ).join("")
     : '<div class="empty">Your wardrobe is empty.</div>';
 }
@@ -1117,12 +1715,16 @@ function addWardrobe(encodedName, encodedSize, encodedSport) {
   );
 
   items.push({
-    name: decodeURIComponent(encodedName),
-    size: decodeURIComponent(encodedSize),
-    sport: decodeURIComponent(encodedSport || "Soccer")
+    name:decodeURIComponent(encodedName),
+    size:decodeURIComponent(encodedSize),
+    sport:decodeURIComponent(encodedSport || "Soccer")
   });
 
-  localStorage.setItem("jersifyWardrobe", JSON.stringify(items));
+  localStorage.setItem(
+    "jersifyWardrobe",
+    JSON.stringify(items)
+  );
+
   alert("Added to your wardrobe on this device.");
 }
 
@@ -1133,7 +1735,11 @@ function removeWardrobe(index) {
 
   items.splice(index, 1);
 
-  localStorage.setItem("jersifyWardrobe", JSON.stringify(items));
+  localStorage.setItem(
+    "jersifyWardrobe",
+    JSON.stringify(items)
+  );
+
   renderWardrobe();
 }
 
@@ -1145,18 +1751,24 @@ $("wardrobeForm").addEventListener("submit", event => {
   );
 
   items.push({
-    name: $("wardrobeName").value.trim(),
-    sport: $("wardrobeSport").value,
-    size: $("wardrobeSize").value.trim()
+    name:$("wardrobeName").value.trim(),
+    sport:$("wardrobeSport").value,
+    size:$("wardrobeSize").value.trim()
   });
 
-  localStorage.setItem("jersifyWardrobe", JSON.stringify(items));
+  localStorage.setItem(
+    "jersifyWardrobe",
+    JSON.stringify(items)
+  );
+
   $("wardrobeForm").reset();
   renderWardrobe();
 });
 
-setPreview("listingPhoto", "listingPreview");
-setPreview("swapPhoto", "swapPreview");
+/* INITIALISE PHOTO PICKERS */
+
+setupPhotoPicker("listing");
+setupPhotoPicker("swap");
 
 $("displayCurrency").value = getDisplayCurrency();
 
@@ -1172,6 +1784,7 @@ auth.onAuthStateChanged(async user => {
 
   renderListings();
   renderSwaps();
+
   await renderOffers();
 });
 
@@ -1179,5 +1792,6 @@ loadRates();
 refreshData();
 renderWardrobe();
 </script>
+
 </body>
-  </html>
+          </html>
